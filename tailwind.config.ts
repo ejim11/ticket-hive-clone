@@ -1,19 +1,53 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    theme: {
+        fontFamily: {
+            outfit: ["var(--font-outfit)"],
+            nunito: ["var(--font-nunito)"],
+        },
+        colors: {
+            "color-inherit": "inherit",
+            "color-transparent": "transparent",
+            "color-current": "currentColor",
+            "color-red": "red",
+            "color-purple": {
+                1: "rgba(131, 66, 255, 1)",
+                2: "rgba(162, 113, 255, 1)",
+                3: "rgba(197, 167, 255, 1)",
+            },
+            "color-black": {
+                1: "rgba(41, 41, 41, 1)",
+                2: "rgba(41, 41, 41, 0.5)",
+            },
+            "color-white": {
+                1: "rgba(255, 255, 255, 1)",
+                2: "rgba(255, 255, 255, 0.8)",
+            },
+            "color-grey": {
+                1: "rgba(34, 34, 34, 0.4)",
+                2: "rgba(248, 248, 248, 1)",
+                3: "rgba(241, 241, 241, 1)",
+            },
+        },
+        extend: {
+            backgroundImage: {
+                "home-1": "url('../assets/home/first-img.png')",
+                "bring-vision": "url('../assets/home/bring-your-vision.png')",
+            },
+            gridTemplateColumns: {
+                "event-cat-grid": "repeat(auto-fit, minmax(28rem, 1fr))",
+            },
+            boxShadow: {
+                "sort-event": "0 4px 28px 0px rgba(157, 157, 157, 0.25)",
+            },
+        },
     },
-  },
-  plugins: [],
+    plugins: [],
 };
 export default config;

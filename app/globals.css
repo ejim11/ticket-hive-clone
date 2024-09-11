@@ -2,26 +2,147 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*::before,
+*::after,
+* {
+    box-sizing: inherit;
+    padding: 0;
+    margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+    box-sizing: border-box;
+    /* 1rem = 10px */
+    font-size: 62.5%;
+    scroll-behavior: smooth !important;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+input {
+    font-size: 16px !important;
+}
+
+img {
+    max-width: 100%;
+}
+
+* Chrome,
+Safari,
+Edge,
+Opera */ input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar {
+    height: 1rem;
+    /* @media all and (max-width: 700px) {
+    height: 1rem;
+  } */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(197, 167, 255, 1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(131, 66, 255, 1);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(162, 113, 255, 1);
+}
+
+.blur-item {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* filter-scroll styling */
+.filter-scroll::-webkit-scrollbar-track {
+    background-color: rgba(34, 34, 34, 0.4);
+}
+
+.filter-scroll::-webkit-scrollbar-thumb {
+    background: rgba(162, 113, 255, 1);
+}
+
+.filter-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(131, 66, 255, 1);
+}
+
+/* blurred button */
+
+/* .blurred-button {
+    position: relative;
+
+    background: transparent;
+    color: white;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.blurred-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(131, 66, 255, 1);
+    backdrop-filter: blur(18px);
+    z-index: -1;
+    border-radius: 5px;
+} */
+
+/* slider custom styling */
+.slick-dots {
+    margin-right: 8rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    bottom: -6rem !important;
+}
+
+.slick-dots li {
+    margin: 0 2rem !important;
+    width: 20rem !important;
+    height: 0.4rem !important;
+    background-color: rgba(215, 215, 215, 0.9) !important;
+}
+
+.slick-dots li.slick-active {
+    background-color: rgba(131, 66, 255, 1) !important;
+}
+
+/* otp */
+
+.otp:focus,
+.otp:active {
+    border-color: rgba(131, 66, 255, 1) !important;
+    /* background-color: rgba(131, 66, 255, 1) !important; */
+}
+
+/* input number type */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
