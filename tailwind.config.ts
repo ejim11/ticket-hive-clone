@@ -36,6 +36,8 @@ const config: Config = {
       },
     },
     screens: {
+      "4xl": { max: "2000px" },
+      // => @media (max-width: 1535px) { ... }
       "3xl": { max: "1535px" },
       // => @media (max-width: 1535px) { ... }
       "2xl": { max: "1350px" },
