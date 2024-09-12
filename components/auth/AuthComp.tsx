@@ -26,7 +26,11 @@ const AuthComp: React.FC<{
           </Link>
 
           <div className="flex items-center sm:hidden">
-            <p className="text-[#22222299]">Already have an account?  </p>
+            <p className="text-[#22222299] mr-[0.5rem]">
+              {linkTitle === "Sign up"
+                ? "Don't have an account?"
+                : "Already have an account?"}
+            </p>
             <Link href={link} className="text-[#8342FF]">
               {linkTitle}
             </Link>
@@ -34,7 +38,11 @@ const AuthComp: React.FC<{
         </div>
         <div>{children}</div>
         <div className="items-center hidden sm:flex justify-center mb-[2rem]">
-          <p className="text-[#22222299]">Already have an account?  </p>
+          <p className="text-[#22222299] mr-[0.5rem]">
+            {linkTitle === "Sign up"
+              ? "Don't have an account?"
+              : "Already have an account?"}
+          </p>
           <Link href={link} className="text-[#8342FF]">
             {linkTitle}
           </Link>
