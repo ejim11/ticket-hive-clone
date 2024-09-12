@@ -12,9 +12,40 @@
 
 html {
   box-sizing: border-box;
-  /* 1rem = 10px */
-  font-size: 62.5%;
+  /* 1rem = 16px */
+  font-size: 100%;
   scroll-behavior: smooth !important;
+}
+
+@media all and (max-width: 2000px) {
+  html {
+    /* 1rem = 14px */
+    font-size: 87.5%;
+  }
+}
+
+@media all and (max-width: 1700px) {
+  html {
+    /* 1rem = 12px */
+    font-size: 75%;
+  }
+}
+
+@media all and (max-width: 1500px) {
+  html {
+    /* 1rem = 10px */
+    font-size: 62.5%;
+  }
+}
+
+@media all and (max-width: 850px) {
+  html {
+    /* 1rem = 9px */
+    font-size: 56.25%;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {
