@@ -4,7 +4,7 @@ import React from "react";
 
 const BringYourVision = () => {
   return (
-    <section className="bg-bring-vision bg-center bg-no-repeat bg-cover px-[3rem] sm:px-[2rem] h-[89rem] py-[10rem] flex flex-col justify-end items-center">
+    <section className="bg-bring-vision bg-center bg-no-repeat bg-cover px-[3rem] sm:px-[2rem] h-[89rem] py-[10rem] bg-fixed flex flex-col justify-end items-center">
       <p className="text-color-white-1 text-[7rem] smd:text-[6rem] font-medium text-center">
         Bring your vision
       </p>
