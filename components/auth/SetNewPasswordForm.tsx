@@ -44,7 +44,7 @@ const SetNewPasswordForm = () => {
     };
 
     return (
-        <div className="font-outfit px-[5rem] flex flex-cols items-center flex-col my-[2rem]">
+        <div className="font-outfit px-[5rem]  2xl:px-[3rem] sm:px-0  sm:mt-[3rem] flex flex-cols items-center flex-col my-[2rem]">
             <h3 className="text-[4rem] font-medium">Set new password</h3>
             <p className="text-[#22222299] text-center">
                 Must be at least 8 characters

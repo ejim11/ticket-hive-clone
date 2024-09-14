@@ -53,16 +53,31 @@ const EventImages = ({
         slidesToScroll: 1,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
-        // customPaging: function (i: any) {
-        //     return <div className="  "></div>;
-        // },
+        customPaging: function (i: any) {
+            return <div className="  "></div>;
+        },
+        responsive: [
+            {
+                breakpoint: 950,
+                settings: {
+                    dots: true,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                },
+            },
+        ],
     };
 
     return (
         <div className="w-full my-[2rem]">
             <Slider {...settings}>
                 {images.map((img: StaticImageData, i: number) => (
-                    <div key={i} className="w-[70rem] h-[70rem] px-[3rem]">
+                    <div
+                        key={i}
+                        className="w-[70rem] h-[70rem] px-[3rem] xlg:px-[1.5rem] xmd:px-0 xmd:w-full xmd:h-[30rem]"
+                    >
                         <Image
                             src={img}
                             alt={`${title} images`}

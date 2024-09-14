@@ -4,11 +4,11 @@ import React from "react";
 
 const BringYourVision = () => {
     return (
-        <section className="bg-bring-vision bg-center bg-no-repeat bg-cover h-[89rem] py-[10rem] bg-fixed flex flex-col justify-end items-center">
-            <p className="text-color-white-1 text-[7rem] font-medium">
+        <section className="bg-bring-vision bg-center bg-no-repeat bg-cover px-[3rem] sm:px-[2rem] h-[89rem] py-[10rem] bg-fixed flex flex-col justify-end items-center">
+            <p className="text-color-white-1 text-[7rem] smd:text-[6rem] font-medium text-center">
                 Bring your vision
             </p>
-            <p className="text-[rgba(255,255,255,0.8)] text-[1.8rem]">
+            <p className="text-[rgba(255,255,255,0.8)] text-[1.8rem] text-center">
                 Whether it's a concert, conference, festival, or workshop, our
                 platform makes it effortless to create and manage your event. 
             </p>

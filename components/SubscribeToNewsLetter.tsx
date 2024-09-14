@@ -28,8 +28,8 @@ const SubscribeToNewsLetter = () => {
     const onSubscribeHandler: SubmitHandler<FormData> = () => {};
 
     return (
-        <div className="p-[10rem] flex justify-between border-b border-[rgba(255,255,255,.5)]">
-            <div className="w-[45%]">
+        <div className="p-[10rem] 2xl:px-[8rem] xlg:px-[3rem] sm:px-[2rem] flex justify-between border-b border-[rgba(255,255,255,.5)] smd:flex-col">
+            <div className="w-[45%] xmd:w-[48%] smd:w-full  md:w-[45%]">
                 <Image
                     src={footerImg}
                     alt="footer image"
@@ -39,9 +39,11 @@ const SubscribeToNewsLetter = () => {
                     className="w-full h-full"
                 />
             </div>
-            <div className="w-[45%] flex flex-col text-color-white-1">
-                <p className="text-[5.8rem]">Subscribe to our newsletter</p>
-                <p className="text-[rgba(255,255,255,0.6)]">
+            <div className="w-[45%] xmd:w-[48%]  md:w-[51%] smd:w-full smd:mt-[3rem]  flex flex-col text-color-white-1">
+                <p className="text-[5.8rem] xmd:text-[4rem] sm:text-center sm:text-[3rem]">
+                    Subscribe to our newsletter
+                </p>
+                <p className="text-[rgba(255,255,255,0.6)] sm:text-justify">
                     Subscribe to our newsletter and gain access to exclusive
                     deals, early bird ticket sales, and behind-the-scenes
                     insights. Stay informed with the latest updates and enjoy

@@ -4,7 +4,7 @@ import React from "react";
 
 const page = () => {
     return (
-        <AuthComp link="/auth/create-account" linkTitle="Sign up">
+        <AuthComp link="/auth/select-account-type" linkTitle="Sign up">
             <LoginForm />
         </AuthComp>
     );

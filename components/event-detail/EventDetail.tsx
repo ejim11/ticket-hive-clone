@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { eventsList } from "../utils/data";
 import Image from "next/image";
 import formatAmount from "../utils/formatAmount";
@@ -47,9 +47,13 @@ const EventDetail = ({ param }: { param: string }) => {
         },
     ];
 
+    useEffect(() => {
+        window.scrollTo({ top: -90, behavior: "smooth" });
+    }, []);
+
     return (
-        <section className="font-outfit">
-            <div className=" py-[3rem] w-full h-[80rem] px-[5rem] ">
+        <section className="font-outfit mt-[9rem]">
+            <div className=" py-[3rem] w-full h-[80rem] xmd:h-auto px-[5rem] xlg:p-[3rem] sm:px-[2rem] xmd:pt-[2rem] xmd:pb-0 ">
                 {event && (
                     <Image
                         src={event.image}
@@ -57,18 +61,18 @@ const EventDetail = ({ param }: { param: string }) => {
                         priority
                         width={2000}
                         height={2000}
-                        className="w-full h-full object-cover "
+                        className="w-full h-full rounded-[0.6rem] "
                     />
                 )}
             </div>
-            <div className="flex justify-between my-[5rem] px-[5rem] ">
-                <div className="w-[60%]">
-                    <p className="text-[6.4rem] font-medium text-[rgba(41,41,41,1)]">
+            <div className="flex justify-between my-[5rem] smd:my-[3rem] sm:my-[2rem] px-[5rem] xlg:px-[3rem] sm:px-[2rem] xmd:flex-col ">
+                <div className="w-[60%] xmd:w-full ">
+                    <p className="text-[6.4rem] xmd:text-[4rem] sm:text-[3.5rem] font-medium text-[rgba(41,41,41,1)]">
                         {event?.title}
                     </p>
                     <p className="text-[2rem] font-normal ">{event?.summary}</p>
                 </div>
-                <div className="border rounded-[0.8rem] border-[rgba(224,225,230,1)] p-[2rem] flex flex-col justify-between items-center self-start">
+                <div className="border xmd:mt-[3rem] xmd:p-0 rounded-[0.8rem] border-[rgba(224,225,230,1)] p-[2rem] flex flex-col justify-between items-center self-start xmd:border-none xmd:w-full">
                     {/* <p className="text-[2.4rem] text-[rgba(34,34,34,1)]">
                         {event?.price === 0
                             ? "Free"
@@ -76,13 +80,13 @@ const EventDetail = ({ param }: { param: string }) => {
                     </p> */}
                     <button
                         type="button"
-                        className="px-[10rem] py-[1.5rem] bg-color-purple-1 text-color-white-1 rounded-[0.4rem] text-[2rem]"
+                        className="px-[10rem] xmd:w-full  py-[1.5rem] bg-color-purple-1 text-color-white-1 rounded-[0.4rem] text-[2rem]"
                     >
                         Get ticket
                     </button>
                 </div>
             </div>
-            <div className="w-full my-[8rem] px-[5rem]">
+            <div className="w-full my-[8rem] xmd:mt-[5rem] px-[5rem] xlg:px-[3rem] sm:px-[2rem]">
                 {eventInfo.map((info: any, i: number) => (
                     <EventInfoAccordion
                         key={info.title}

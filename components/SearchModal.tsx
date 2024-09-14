@@ -31,17 +31,17 @@ const SearchModal = () => {
             transition={{ duration: 0.15, ease: "easeIn" }}
             className="absolute w-full top-0 left-0 right-0 z-50 bg-color-white-1  shadow-sort-even font-outfit"
         >
-            <div className="h-[9rem] px-[5rem] flex items-center  justify-between ">
+            <div className="h-[9rem] px-[5rem] smd:px-[3rem] sm:px-[2rem] flex items-center  justify-between ">
                 <Link href={"/"}>
                     <Image
                         src={logo}
                         alt="logo image"
                         width={200}
                         height={200}
-                        className="w-auto h-auto"
+                        className="w-auto h-auto xmd:hidden"
                     />
                 </Link>
-                <div className="flex  rounded-[5rem] bg-[rgba(244,244,244,1)] items-center px-[1.5rem] w-[50%]">
+                <div className="flex  rounded-[5rem] bg-[rgba(244,244,244,1)] items-center px-[1.5rem] w-[50%] xmd:flex-1 xmd:mr-[2rem]">
                     <CiSearch className="w-[2.2rem] h-[2.2rem] mr-[1rem] text-[rgba(34,34,34,0.7)] " />
                     <input
                         type="text"
@@ -62,7 +62,7 @@ const SearchModal = () => {
                 </button>
             </div>
             <div className="flex items-center justify-center border-t border-t-[rgba(224,225,230,1)] ">
-                <div className="w-[40%]   py-[2rem]">
+                <div className="w-[40%] xmd:w-[90%]   py-[2rem]">
                     <p className="text-[rgba(16,7,7,0.6)] mb-[1.5rem]">
                         Recent searches
                     </p>

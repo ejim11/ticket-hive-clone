@@ -66,7 +66,7 @@ const EventInfoAccordion = ({
                         exit="collapsed"
                         layout
                         variants={eventInfoAnimationVariant}
-                        className="w-full"
+                        className="w-full h-auto"
                     >
                         {component}
                     </motion.div>

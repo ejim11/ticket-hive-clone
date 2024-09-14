@@ -13,9 +13,12 @@ const EventLocation = ({
     ];
 
     return (
-        <div className="flex pt-[1rem] pb-[2rem] font-outfit">
+        <div className="flex pt-[1rem] pb-[2rem] font-outfit sm:flex-col">
             {infos.map((info: any) => (
-                <div key={info.title} className="flex flex-col flex-1">
+                <div
+                    key={info.title}
+                    className="flex flex-col flex-1 sm:mb-[2rem]"
+                >
                     <p className="text-[2rem] font-semibold mb-[1rem] text-[rgba(34,34,34,0.8)]">
                         {info.title}
                     </p>

@@ -30,7 +30,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${outfit.variable} ${nunito.variable} relative `}>
+            <body
+                className={`${outfit.variable} ${nunito.variable} relative  bg-color-white-1`}
+            >
                 <ReduxProviderWrapper>
                     <Header />
                     {children}

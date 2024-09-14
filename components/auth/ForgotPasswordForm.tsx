@@ -32,8 +32,10 @@ const ForgotPasswordForm = () => {
     };
 
     return (
-        <div className="font-outfit px-[5rem] flex flex-cols items-center flex-col my-[2rem]">
-            <h3 className="text-[4rem] font-medium">Forgot Password</h3>
+        <div className="font-outfit px-[5rem] 2xl:px-[3rem] sm:px-0 flex flex-cols items-center flex-col my-[2rem] sm:mt-[3rem]">
+            <h3 className="text-[4rem] font-medium sm:text-[3rem]">
+                Forgot Password
+            </h3>
             <p className="text-[#22222299] text-center">
                 No worries, we’ll send you the rest instructions
             </p>

@@ -13,8 +13,10 @@ const ForgotPasswordOTP = () => {
     const router = useRouter();
 
     return (
-        <div className="font-outfit px-[5rem] flex flex-cols items-center flex-col my-[2rem]">
-            <h3 className="text-[4rem] font-medium">Forgot Password</h3>
+        <div className="font-outfit px-[5rem] 3xl:px-[3rem] sm:px-0 flex flex-cols items-center flex-col my-[2rem] sm:mt-[3rem]">
+            <h3 className="text-[4rem] font-medium sm:text-[3rem]">
+                Forgot Password
+            </h3>
             <p className="text-[#22222299] text-center">
                 We sent a code to{" "}
                 <span className="text-[#222222]">johndoe@gmail.com</span>
@@ -28,7 +30,7 @@ const ForgotPasswordOTP = () => {
                     numInputs={4}
                     isInputNum={true}
                     successStyle={"!border-color-purple-1"}
-                    inputStyle="!border-[0.2rem] !border-color-purple-1 ring-0 outline-none focus:ring-0  focus:outline-0  !rounded-[0.8rem] !text-color-black-1 !active:border-color-purple-1 !:outline-color-purple   !w-[9.4rem] !h-[9.4rem] !text-[4rem] !font-outfit otp"
+                    inputStyle="!border-[0.2rem] !border-color-purple-1 ring-0 outline-none focus:ring-0  focus:outline-0  !rounded-[0.8rem] !text-color-black-1 !active:border-color-purple-1 !:outline-color-purple   !w-[9.4rem] !h-[9.4rem] !text-[4rem] !font-outfit otp "
                     separator={<span className="w-[2rem]"></span>}
                 />
                 <button

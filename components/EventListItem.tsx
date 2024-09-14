@@ -20,7 +20,7 @@ const EventListItem = ({ item }: { item: any }) => {
 
     return (
         <button
-            className="flex flex-col "
+            className="flex flex-col w-full "
             onClick={navigateToEventItemdetailHandler}
         >
             <div className="w-full h-[25rem]">
@@ -35,7 +35,7 @@ const EventListItem = ({ item }: { item: any }) => {
             </div>
 
             <div className="p-[1rem] flex flex-col  w-full items-start">
-                <p className="text-[rgba(41,41,41,1)]  uppercase mb-[.5rem] font-medium">
+                <p className="text-[rgba(41,41,41,1)] text-[2rem]  uppercase mb-[.5rem] font-medium text-left">
                     {item.title}
                 </p>
                 <div className="flex items-center text-color-black-2 mb-[0.5rem] z-30 relative">
