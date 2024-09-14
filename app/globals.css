@@ -221,5 +221,5 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* bg attachment */
 .attachment-bg {
-  background-attachment: fixed;
+  background-attachment: fixed !important;
 }
