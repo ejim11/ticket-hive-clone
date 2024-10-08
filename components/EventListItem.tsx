@@ -47,7 +47,9 @@ const EventListItem = ({ item }: { item: any }) => {
                     <p className="text-[1.4rem]">{item.dateAndTime.date}</p>
                 </div>
                 <p className="text-color-black-2 text-[1.4rem]">
-                    {item.price === 0 ? "free" : `${item.price}`}
+                    {item.tickets[0].price === 0
+                        ? "free"
+                        : `${item.tickets[0].price}`}
                 </p>
             </div>
         </button>

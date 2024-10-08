@@ -37,7 +37,8 @@ const Header = () => {
 
     const dispatch = useAppDispatch();
 
-    const isAnAuthPage: boolean = pathname.includes("auth");
+    const hideHeader: boolean =
+        pathname.includes("auth") || pathname.includes("dashboard");
 
     const [menuIsVisible, setMenuIsVisible] = useState<boolean>(false);
 
@@ -64,7 +65,7 @@ const Header = () => {
     return (
         <header
             className={`h-[9rem] items-center px-[5rem] fixed top-0 right-0 left-0 z-[100] xlg:px-[3rem] sm:px-[2rem] bg-color-white-1 shadow-md font-outfit ${
-                isAnAuthPage ? "hidden" : " flex "
+                hideHeader ? "hidden" : " flex "
             }`}
         >
             <Link href={"/"}>

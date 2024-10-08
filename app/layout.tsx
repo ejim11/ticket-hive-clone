@@ -5,6 +5,8 @@ import { NextFontWithVariable } from "next/dist/compiled/@next/font";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ReduxProviderWrapper from "@/components/ReduxProviderWrapper";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
     title: "Ticket Hive",
@@ -37,6 +39,7 @@ export default function RootLayout({
                     <Header />
                     {children}
                     <Footer />
+                    <ToastContainer />
                 </ReduxProviderWrapper>
             </body>
         </html>

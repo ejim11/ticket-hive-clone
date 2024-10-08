@@ -15,6 +15,7 @@ const FilterModal = () => {
     const onCloseFilterModalHandler = (e: any) => {
         if (e.target.dataset.close) {
             dispatch(searchAndFilterModalActions.toggleFilterModal(false));
+            return;
         }
     };
 
@@ -26,6 +27,7 @@ const FilterModal = () => {
     const initialAnimation = isMobile
         ? { opacity: 0, y: "100%" }
         : { opacity: 0, x: "100%" };
+
     const animate = isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 };
 
     const submitResultHandler = () => {
@@ -42,7 +44,7 @@ const FilterModal = () => {
             exit={initialAnimation}
             transition={{ duration: 0.2, ease: "easeIn" }}
         >
-            <motion.div className="w-[35%] 2xl:w-[40%] lg:w-[50%] md:w-[60%] smd:w-[65%] sm:w-full sm:h-[80vh] sm:mt-auto sm:rounded-tl-[1.2rem] sm:rounded-tr-[1.2rem] bg-color-white-1 cursor-default flex flex-col font-outfit shadow-sort-event">
+            <div className="w-[35%] 2xl:w-[40%] lg:w-[50%] md:w-[60%] smd:w-[65%] sm:w-full sm:h-[80vh] sm:mt-auto sm:rounded-tl-[1.2rem] sm:rounded-tr-[1.2rem] bg-color-white-1 cursor-default flex flex-col font-outfit shadow-sort-event">
                 <p className="w-full  p-[2rem] border-b border-b-[rgba(224,225,230,1)] text-[2.8rem] font-medium">
                     Filters
                 </p>
@@ -61,7 +63,7 @@ const FilterModal = () => {
                         ) : null}
                     </button>
                 </div>
-            </motion.div>
+            </div>
         </motion.div>
     );
 };

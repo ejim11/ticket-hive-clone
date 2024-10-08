@@ -7,8 +7,11 @@ import EventDateAndTime from "../events/event/EventDateAndTime";
 import EventDescription from "../events/event/EventDescription";
 import EventImages from "../events/event/EventImages";
 import EventInfoAccordion from "../events/event/EventInfoAccordion";
+import { useRouter } from "next/navigation";
 
 const EventDetail = ({ param }: { param: string }) => {
+    const router = useRouter();
+
     const event: any = eventsList.find(
         (eventItem: any) => eventItem.id === Number(param)
     );
@@ -47,6 +50,10 @@ const EventDetail = ({ param }: { param: string }) => {
         },
     ];
 
+    const navigateToGetTicketPage = () => {
+        router.push(`/events/${param}/get-ticket`);
+    };
+
     useEffect(() => {
         window.scrollTo({ top: -90, behavior: "smooth" });
     }, []);
@@ -73,14 +80,17 @@ const EventDetail = ({ param }: { param: string }) => {
                     <p className="text-[2rem] font-normal ">{event?.summary}</p>
                 </div>
                 <div className="border xmd:mt-[3rem] xmd:p-0 rounded-[0.8rem] border-[rgba(224,225,230,1)] p-[2rem] flex flex-col justify-between items-center self-start xmd:border-none xmd:w-full">
-                    {/* <p className="text-[2.4rem] text-[rgba(34,34,34,1)]">
-                        {event?.price === 0
+                    <p className="text-[2.4rem] text-[rgba(34,34,34,1)] mb-[2rem]">
+                        {event.tickets[0].price === 0
                             ? "Free"
-                            : `₦ ${formatAmount(String(event?.price))}`}
-                    </p> */}
+                            : `₦ ${formatAmount(
+                                  String(event.tickets[0].price)
+                              )}`}
+                    </p>
                     <button
                         type="button"
                         className="px-[10rem] xmd:w-full  py-[1.5rem] bg-color-purple-1 text-color-white-1 rounded-[0.4rem] text-[2rem]"
+                        onClick={navigateToGetTicketPage}
                     >
                         Get ticket
                     </button>

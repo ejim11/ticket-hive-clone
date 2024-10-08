@@ -7,11 +7,12 @@ import { usePathname } from "next/navigation";
 const Footer = () => {
     const pathname = usePathname();
 
-    const isAnAuthPage: boolean = pathname.includes("auth");
+    const hideFooter: boolean =
+        pathname.includes("auth") || pathname.includes("dashboard");
     return (
         <footer
             className={`bg-[rgba(15,12,28,1)] flex-col ${
-                isAnAuthPage ? "hidden" : " flex "
+                hideFooter ? "hidden" : " flex "
             }`}
         >
             <SubscribeToNewsLetter />

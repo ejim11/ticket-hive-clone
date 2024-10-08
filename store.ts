@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import searchAndFilterSlice from "./slices/searchAndFilterSlice";
+import createNewEventSlice from "./slices/createNewEventSlice";
+import dashboardHeaderSlice from "./slices/dashboardHeaderSlice";
 
 const store = configureStore({
     reducer: {
         searchAndFilter: searchAndFilterSlice.reducer,
+        createNewEvent: createNewEventSlice.reducer,
+        dashboardHeader: dashboardHeaderSlice.reducer,
     },
 });
 

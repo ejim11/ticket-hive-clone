@@ -14,7 +14,7 @@ const WhyTicketHive = () => {
                 Create your event or secure your ticket with ease and
                 excitement.
             </p>
-            <div className=" grid grid-cols-3 md:flex md:flex-wrap md:justify-center gap-[3rem] lg:gap-[1.5rem]">
+            <div className=" grid grid-cols-3 xmd:flex xmd:flex-wrap xmd:justify-center gap-[3rem] lg:gap-[1.5rem]">
                 {whyTicketHive.map((item: whyTicketHiveType, i: number) => (
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
@@ -26,7 +26,7 @@ const WhyTicketHive = () => {
                             delay: i * 0.15,
                         }}
                         key={item.title}
-                        className={`${item.bgColor} rounded-[0.8rem] p-[3rem] md:w-[48%] smd:w-full`}
+                        className={`${item.bgColor} rounded-[0.8rem] p-[3rem] xmd:w-[48%] smd:w-full`}
                     >
                         <Image
                             src={item.image}

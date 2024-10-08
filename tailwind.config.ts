@@ -36,8 +36,10 @@ const config: Config = {
             },
         },
         screens: {
+            "5xl": { max: "2200px" },
+            // => @media (max-width: 2200px) { ... }
             "4xl": { max: "2000px" },
-            // => @media (max-width: 1535px) { ... }
+            // => @media (max-width: 2000px) { ... }
             "3xl": { max: "1535px" },
             // => @media (max-width: 1535px) { ... }
             "2xl": { max: "1350px" },
@@ -49,7 +51,7 @@ const config: Config = {
             xlg: { max: "1150px" },
             // => @media (max-width: 1150px) { ... }
             lg: { max: "1024px" },
-            // => @media (max-width: 1023px) { ... }
+            // => @media (max-width: 1024px) { ... }
             xmd: { max: "950px" },
             // => @media (max-width: 950px) { ... }
             md: { max: "850px" },
@@ -57,11 +59,11 @@ const config: Config = {
             smd: { max: "700px" },
             // => @media (max-width: 700px) { ... }
             sm: { max: "650px" },
-            // => @media (max-width: 500px) { ... }
+            // => @media (max-width: 650px) { ... }
             ssm: { max: "380px" },
             // => @media (max-width: 380px) { ... }
             sh: { raw: "(max-height: 900px)" },
-
+            // => @media (max-width: 750px) { ... }
             ssh: { raw: "(max-height: 750px)" },
         },
         extend: {
@@ -74,6 +76,10 @@ const config: Config = {
             },
             boxShadow: {
                 "sort-event": "0 4px 28px 0px rgba(157, 157, 157, 0.25)",
+                "event-item-side-modal":
+                    "0px 0px 8.3px 0px rgba(226, 226, 226, 0.18)",
+                "select-ticket-type":
+                    "0px 2px 19.5px 0px rgba(172, 172, 172, 0.15)",
             },
         },
     },
