@@ -15,9 +15,9 @@ export default function Page() {
           <Events />
         ) : (
           <div className="">
-            <div className="w-full h-[40rem] flex items-center justify-center">
-              <p>No Event Found.</p>
-            </div>
+            {/* <div className="w-full h-[40rem] flex items-center justify-center">
+              <p>{isLoading ? "loading" : "No Event Found."}</p>
+            </div> */}
             <WhyTicketHive />
           </div>
         )}

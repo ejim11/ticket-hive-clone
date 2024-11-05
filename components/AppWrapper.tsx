@@ -14,20 +14,20 @@ const AppWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     (state) => state.auth
   );
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
-  // Convert searchParams to an object if needed
-  const searchParamsObject = useMemo(
-    () => ({
-      name: searchParams.get("name") || undefined,
-      category: searchParams.get("category") || undefined,
-      date: searchParams.get("date") || undefined,
-      price: searchParams.get("price") || undefined,
-      attendance: searchParams.get("attendance") || undefined,
-      sort: searchParams.get("sort") || undefined,
-    }),
-    [searchParams]
-  );
+  // // Convert searchParams to an object if needed
+  // const searchParamsObject = useMemo(
+  //   () => ({
+  //     name: searchParams.get("name") || undefined,
+  //     category: searchParams.get("category") || undefined,
+  //     date: searchParams.get("date") || undefined,
+  //     price: searchParams.get("price") || undefined,
+  //     attendance: searchParams.get("attendance") || undefined,
+  //     sort: searchParams.get("sort") || undefined,
+  //   }),
+  //   [searchParams]
+  // );
 
   const autoLogoutHandler = useCallback(() => {
     if (remainingTime) {
@@ -50,26 +50,26 @@ const AppWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }
   }, [dispatchFn]);
 
-  useEffect(() => {
-    const { name, category, date, price, attendance, sort } =
-      searchParamsObject;
+  // useEffect(() => {
+  //   const { name, category, date, price, attendance, sort } =
+  //     searchParamsObject;
 
-    if (name || category || date || price || attendance) {
-      console.log(`Searchin`);
-      dispatchFn(
-        searchForEventDispatch(
-          name ?? "",
-          category ?? "",
-          date ?? "",
-          price ?? "",
-          attendance ?? "",
-          sort
-        )
-      );
-    } else {
-      dispatchFn(getAllEventsDispatch(sort));
-    }
-  }, [dispatchFn, searchParamsObject]);
+  //   if (name || category || date || price || attendance) {
+  //     console.log(`Searchin`);
+  //     dispatchFn(
+  //       searchForEventDispatch(
+  //         name ?? "",
+  //         category ?? "",
+  //         date ?? "",
+  //         price ?? "",
+  //         attendance ?? "",
+  //         sort
+  //       )
+  //     );
+  //   } else {
+  //     dispatchFn(getAllEventsDispatch(sort));
+  //   }
+  // }, [dispatchFn, searchParamsObject]);
 
   return <div>{children}</div>;
 };

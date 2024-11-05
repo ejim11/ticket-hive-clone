@@ -20,9 +20,9 @@ const HomeComp = () => {
     window.scrollTo({ top: -90, behavior: "smooth" });
   }, []);
 
-  // useEffect(() => {
-  //   dispatchFn(getAllEventsDispatch());
-  // }, [dispatchFn]);
+  useEffect(() => {
+    dispatchFn(getAllEventsDispatch());
+  }, [dispatchFn]);
   return (
     <main className="font-outfit transition-all duration-150 ease-in mt-[9rem]">
       <SectionCover className="h-[calc(100vh-9rem)] sh:h-[calc(115vh-9rem)] ssh:h-[calc(135vh-9rem)] bg-home-1 bg-no-repeat bg-center py-[5rem] bg-cover xmd:relative      flex">

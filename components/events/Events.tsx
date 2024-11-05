@@ -11,6 +11,8 @@ import { searchAndFilterModalActions } from "@/slices/searchAndFilterSlice";
 import EventSkeleton from "../skeletons/EventSkeleton";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { searchForEventDispatch } from "@/actions/searchActions";
+import { getAllEventsDispatch } from "@/actions/eventActions";
 
 const Events = () => {
   const searchParams = useSearchParams();
@@ -60,26 +62,26 @@ const Events = () => {
 
   console.log("is ite even here");
 
-  // useEffect(() => {
-  //   const { name, category, date, price, attendance, sort } =
-  //     searchParamsObject;
+  useEffect(() => {
+    const { name, category, date, price, attendance, sort } =
+      searchParamsObject;
 
-  //   if (name || category || date || price || attendance) {
-  //     console.log(`Searchin`);
-  //     dispatch(
-  //       searchForEventDispatch(
-  //         name ?? "",
-  //         category ?? "",
-  //         date ?? "",
-  //         price ?? "",
-  //         attendance ?? "",
-  //         sort
-  //       )
-  //     );
-  //   } else {
-  //     dispatch(getAllEventsDispatch(sort));
-  //   }
-  // }, [dispatch, searchParamsObject]);
+    if (name || category || date || price || attendance) {
+      console.log(`Searchin`);
+      dispatch(
+        searchForEventDispatch(
+          name ?? "",
+          category ?? "",
+          date ?? "",
+          price ?? "",
+          attendance ?? "",
+          sort
+        )
+      );
+    } else {
+      dispatch(getAllEventsDispatch(sort));
+    }
+  }, [dispatch, searchParamsObject]);
 
   const sortEventsHandler = (sort: string) => {
     const { category, price, date, attendance } = searchParamsObject;
