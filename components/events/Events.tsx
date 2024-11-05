@@ -3,18 +3,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import EventListItem from "../EventListItem";
-import { eventsList } from "../utils/data";
 import WhyTicketHive from "../WhyTicketHive";
 import { AnimatePresence, motion } from "framer-motion";
 import FilterModal from "./FilterModal";
 import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
 import { searchAndFilterModalActions } from "@/slices/searchAndFilterSlice";
 import EventSkeleton from "../skeletons/EventSkeleton";
-import { getAllEventsDispatch } from "@/actions/eventActions";
-import { searchForEventDispatch } from "@/actions/searchActions";
-import { sortEvents } from "../utils/sortEvents";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { eventsActions } from "@/slices/eventSlice";
+
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Events = () => {
   const searchParams = useSearchParams();
@@ -64,28 +60,26 @@ const Events = () => {
 
   console.log("is ite even here");
 
-  useEffect(() => {
-    console.log(searchParams);
-    console.log("searching for params");
-    const { name, category, date, price, attendance, sort } =
-      searchParamsObject;
+  // useEffect(() => {
+  //   const { name, category, date, price, attendance, sort } =
+  //     searchParamsObject;
 
-    if (name || category || date || price || attendance) {
-      console.log(`Searchin`);
-      dispatch(
-        searchForEventDispatch(
-          name ?? "",
-          category ?? "",
-          date ?? "",
-          price ?? "",
-          attendance ?? "",
-          sort
-        )
-      );
-    } else {
-      dispatch(getAllEventsDispatch(sort));
-    }
-  }, [dispatch, searchParamsObject]);
+  //   if (name || category || date || price || attendance) {
+  //     console.log(`Searchin`);
+  //     dispatch(
+  //       searchForEventDispatch(
+  //         name ?? "",
+  //         category ?? "",
+  //         date ?? "",
+  //         price ?? "",
+  //         attendance ?? "",
+  //         sort
+  //       )
+  //     );
+  //   } else {
+  //     dispatch(getAllEventsDispatch(sort));
+  //   }
+  // }, [dispatch, searchParamsObject]);
 
   const sortEventsHandler = (sort: string) => {
     const { category, price, date, attendance } = searchParamsObject;
