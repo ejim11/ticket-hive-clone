@@ -1,8 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Events from "@/components/events/Events";
+import { useAppSelector } from "@/hooks/customHook";
 
 export default function Page() {
-  return <Events />;
+  const { events } = useAppSelector((state) => state.event);
+
+  return (
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        {events.length > 0 && <Events />}
+      </Suspense>
+    </>
+  );
 }
