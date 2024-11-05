@@ -78,10 +78,10 @@ const DateAndLocation = ({ setFormIndex }: { setFormIndex: Function }) => {
                         date={endDate}
                         setDate={setEndDate}
                         startDate={startDate}
-                        eventFrom={eventEndFrom}
-                        setEventFrom={setEventEndFrom}
-                        eventTo={eventEndTo}
-                        setEventTo={setEventEndTo}
+                        // eventFrom={eventEndFrom}
+                        // setEventFrom={setEventEndFrom}
+                        // eventTo={eventEndTo}
+                        // setEventTo={setEventEndTo}
                     />
                 )}
                 <Location />

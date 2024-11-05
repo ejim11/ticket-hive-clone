@@ -4,8 +4,10 @@ import SectionCover from "../SectionCover";
 import { eventCategories, EventCategory } from "../utils/data";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const EventCategories = () => {
+    const router = useRouter();
     return (
         <SectionCover className="py-[10rem] font-outfit bg-color-white-1 smd:py-[8rem] sm:py-[6rem]">
             <h3 className="text-[3rem] font-semibold uppercase mb-[3rem] sm:text-center">
@@ -23,7 +25,12 @@ const EventCategories = () => {
                             delay: i * 0.1,
                         }}
                         key={category.title}
-                        className="flex flex-col items-center"
+                        className="flex flex-col items-center cursor-pointer"
+                        onClick={() => {
+                            router.replace(
+                                `/events?category=${category.title.toLowerCase()}`
+                            );
+                        }}
                     >
                         <Image
                             src={category.image}

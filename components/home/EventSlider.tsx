@@ -7,6 +7,8 @@ import EventListItem from "../EventListItem";
 import SectionCover from "../SectionCover";
 import { GoChevronRight, GoChevronLeft } from "react-icons/go";
 import { eventsList } from "../utils/data";
+import EventSkeleton from "../skeletons/EventSkeleton";
+import { useAppSelector } from "@/hooks/customHook";
 
 const sliderBtnClassnName =
     "bg-color-grey-1 flex items-center top-[50%]  justify-center w-[7rem] h-[7rem] rounded-full absolute  z-20     hover:bg-color-black-1  transition-all duration-150 ease-in";
@@ -39,12 +41,13 @@ function PrevArrow(props: any) {
     );
 }
 
-const EventSlider = ({ title }: { title: string }) => {
+const EventSlider = ({ title, events }: { title: string; events: any }) => {
+    const { isLoading } = useAppSelector((state) => state.event);
+
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
-
         slidesToShow: 3,
         slidesToScroll: 3,
         nextArrow: <NextArrow />,
@@ -73,6 +76,7 @@ const EventSlider = ({ title }: { title: string }) => {
             return <div className="  "></div>;
         },
     };
+
     return (
         <div className="w-full pl-[8rem] xlg:pl-[5rem] xmd:pl-[3rem] smd:pl-0 pb-[10rem] smd:py-[8rem] sm:py-[6rem]">
             <div className="w-full flex justify-between items-center pr-[8rem] xlg:pr-[5rem] xmd:pr-[3rem] sm:pr-[2rem] py-[2.5rem]">
@@ -87,13 +91,42 @@ const EventSlider = ({ title }: { title: string }) => {
                 </button>
             </div>
             <div className="smd:px-[3rem] sm:px-[2rem]">
-                <Slider {...settings}>
-                    {eventsList.map((eventItem: any) => (
-                        <div key={eventItem} className="pr-[3rem] smd:pr-0">
-                            <EventListItem item={eventItem} />
+                {isLoading ? (
+                    <div className="pr-[5rem] grid grid-cols-event-cat-grid gap-[3rem]">
+                        <div className="w-full ">
+                            <EventSkeleton />
                         </div>
-                    ))}
-                </Slider>
+                        <div className="w-full ">
+                            <EventSkeleton />
+                        </div>
+                        <div className="w-full ">
+                            <EventSkeleton />
+                        </div>
+                    </div>
+                ) : events.length === 0 ? (
+                    <div className="w-full flex justify-center items-center">
+                        <p>No events available</p>
+                    </div>
+                ) : (
+                    <Slider {...settings}>
+                        {events.map((eventItem: any) => (
+                            <div key={eventItem} className="pr-[3rem] smd:pr-0">
+                                <EventListItem event={eventItem} />
+                            </div>
+                        ))}
+
+                        {events.length < 3 && (
+                            <div className="w-[50rem] h-[40rem] pr-[3rem]">
+                                <div className=" bg-color-white-1 w-full h-full"></div>
+                            </div>
+                        )}
+                        {events.length < 2 && (
+                            <div className="w-[50rem] h-[40rem] pr-[3rem]">
+                                <div className=" bg-color-white-1 w-full h-full"></div>
+                            </div>
+                        )}
+                    </Slider>
+                )}
             </div>
         </div>
     );

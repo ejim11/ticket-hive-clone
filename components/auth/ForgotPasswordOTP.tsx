@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
+import { authActions } from "@/slices/authSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -7,8 +9,8 @@ import { FallingLines } from "react-loader-spinner";
 import OtpInput from "react18-input-otp";
 
 const ForgotPasswordOTP = () => {
-    const [otp, setOtp] = useState<string>("");
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { otp } = useAppSelector((state) => state.auth);
+    const dispatchFn = useAppDispatch();
 
     const router = useRouter();
 
@@ -25,7 +27,7 @@ const ForgotPasswordOTP = () => {
                 <OtpInput
                     value={otp}
                     onChange={(enteredOtp: any) => {
-                        setOtp(enteredOtp);
+                        dispatchFn(authActions.setResetOtp(enteredOtp));
                     }}
                     numInputs={4}
                     isInputNum={true}
@@ -34,25 +36,14 @@ const ForgotPasswordOTP = () => {
                     separator={<span className="w-[2rem]"></span>}
                 />
                 <button
-                    disabled={isLoading}
+                    disabled={!otp}
                     type="submit"
-                    className={`mt-[3.5rem] py-[2rem] flex justify-center hover:shadow-lg  font-medium items-center bg-color-purple-1 text-color-white-1 w-full border border-color-purple-1 hover:bg-color-purple-2 hover:border-color-purple-2  rounded-lg transition-all duration-150 ease-in ${
-                        isLoading && "opacity-75 "
-                    }`}
+                    className={`mt-[3.5rem] py-[2rem] flex justify-center hover:shadow-lg  font-medium items-center bg-color-purple-1 text-color-white-1 w-full border border-color-purple-1 hover:bg-color-purple-2 hover:border-color-purple-2  rounded-lg transition-all duration-150 ease-in  cursor-pointer disabled:bg-color-purple-3 disabled:border-color-purple-3`}
                     onClick={() => {
                         router.push("/auth/reset-password");
                     }}
                 >
-                    {isLoading ? (
-                        <FallingLines
-                            height="25"
-                            width="25"
-                            color={"white"}
-                            visible={true}
-                        />
-                    ) : (
-                        "Reset password"
-                    )}
+                    Reset password
                 </button>
             </div>
             <div className="flex flex-col items-center mt-[2.4rem]">

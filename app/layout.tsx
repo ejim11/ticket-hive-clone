@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ReduxProviderWrapper from "@/components/ReduxProviderWrapper";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AppWrapper from "@/components/AppWrapper";
 
 export const metadata: Metadata = {
     title: "Ticket Hive",
@@ -36,9 +37,11 @@ export default function RootLayout({
                 className={`${outfit.variable} ${nunito.variable} relative  bg-color-white-1`}
             >
                 <ReduxProviderWrapper>
-                    <Header />
-                    {children}
-                    <Footer />
+                    <AppWrapper>
+                        <Header />
+                        {children}
+                        <Footer />
+                    </AppWrapper>
                     <ToastContainer />
                 </ReduxProviderWrapper>
             </body>

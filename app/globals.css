@@ -263,7 +263,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .Toastify__toast-theme--light {
-    color: "rgba(67, 104, 80)" !important;
+    color: "rgba(131, 66, 255, 1)" !important;
 }
 
 .Toastify__toast-body > * {

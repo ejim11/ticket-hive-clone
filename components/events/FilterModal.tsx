@@ -4,9 +4,12 @@ import { motion } from "framer-motion";
 import React from "react";
 import Filters from "./Filters";
 import { useMediaQuery } from "react-responsive";
+import { useRouter } from "next/navigation";
 
 const FilterModal = () => {
     const dispatch = useAppDispatch();
+
+    const router = useRouter();
 
     const { filters } = useAppSelector((state) => state.searchAndFilter);
 
@@ -32,6 +35,57 @@ const FilterModal = () => {
 
     const submitResultHandler = () => {
         dispatch(searchAndFilterModalActions.toggleFilterModal(false));
+
+        // find the filters
+        const categoryFilters: any = filters.find(
+            (item: any) => item.title === "event category"
+        );
+
+        const dateFilters: any = filters.find(
+            (item: any) => item.title === "date"
+        );
+
+        const priceFilters: any = filters.find(
+            (item: any) => item.title === "price"
+        );
+
+        const attendanceFilters: any = filters.find(
+            (item: any) => item.title === "attendance mode"
+        );
+
+        const category: any = categoryFilters
+            ? categoryFilters.filters.join(",").toLowerCase()
+            : "";
+
+        const date = dateFilters
+            ? dateFilters.filters
+                  .slice()
+                  .map((date: string) => date.split(" ").join("").toLowerCase())
+                  .join(",")
+            : "";
+
+        const price: any = priceFilters
+            ? priceFilters.filters
+                  .map((item: string) => item.split(" ")[0].toLowerCase())
+                  .join(",")
+            : "";
+
+        const attendance: any = attendanceFilters
+            ? attendanceFilters.filters
+                  .map((item: string) => item.toLowerCase())
+                  .join(",")
+            : "";
+
+        const filteredQuery = [
+            category && `category=${category}`,
+            date && `date=${date}`,
+            price && `price=${price}`,
+            attendance && `attendance=${attendance}`,
+        ]
+            .filter((item) => !!item)
+            .join("&");
+
+        router.replace(`/events${filteredQuery ? `?${filteredQuery}` : ""}`);
     };
 
     return (

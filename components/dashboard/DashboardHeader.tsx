@@ -77,7 +77,7 @@ const DashboardHeader = () => {
                     />
                 </Link>
             </div>
-            <div className="flex flex-col w-full bg-[rgba(247,247,247,1)] xlg:w-[70%] xlg:h-full">
+            <div className="flex flex-col w-full bg-[rgba(247,247,247,1)] xlg:w-[70%] h-full">
                 <nav className="px-[2rem] mt-[3rem]">
                     <p className="text-[rgba(34,34,34,.6)] text-[1.8rem] xlg:hidden">
                         Menu
@@ -109,7 +109,7 @@ const DashboardHeader = () => {
                         <p className="mb-[1rem]">Ikeja Suya Gateway</p>
                     </div>
                 </div>
-                <div className="mt-auto p-[2rem] border-t border-t-[rgba(239,240,243,1)] w-full">
+                <div className="mt-auto p-[2rem] border-t border-t-[rgba(239,240,243,1)] w-full ">
                     <button
                         type="button"
                         className="flex items-center hover:bg-color-purple-3 rounded-[1.6rem] w-full px-[2rem] py-[1rem]"

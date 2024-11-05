@@ -14,9 +14,9 @@ const TicketInfo = ({
     return (
         <div className="flex flex-col font-outfit mb-[5rem]">
             <div className="flex items-center">
-                <p className="px-[1.4rem] bg-[#222222] rounded-[0.6rem] text-color-white-1 mr-[1.1rem] text-[2rem]">
+                {/* <p className="px-[1.4rem] bg-[#222222] rounded-[0.6rem] text-color-white-1 mr-[1.1rem] text-[2rem]">
                     {index}
-                </p>
+                </p> */}
                 <p className="text-[3.5rem] xlg:text-[3rem] font-medium text-[#222222]">
                     {title}
                 </p>

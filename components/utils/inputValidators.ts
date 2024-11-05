@@ -40,11 +40,16 @@ export const registrationOption = {
         required: "Password is required",
         minLength: {
             value: 8,
-            message: "Password must have at least 6 characters",
+            message: "Password must have at least 8 characters",
         },
         maxLength: {
             value: 20,
             message: "Password cannot be greater than 20 characters",
+        },
+        pattern: {
+            value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+            message:
+                "Minimum eight characters, atleast one letter, number and special character",
         },
     },
     phoneNumber: {

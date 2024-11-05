@@ -12,7 +12,6 @@ const EventDateAndTime = ({
     date,
     setDate,
     startDate,
-
     eventFrom,
     setEventFrom,
     eventTo,
@@ -22,11 +21,10 @@ const EventDateAndTime = ({
     date: string;
     setDate: Function;
     startDate?: any;
-
-    eventFrom: string;
-    setEventFrom: Function;
-    eventTo: string;
-    setEventTo: Function;
+    eventFrom?: string;
+    setEventFrom?: Function;
+    eventTo?: string;
+    setEventTo?: Function;
 }) => {
     const dispatchFn = useAppDispatch();
 
@@ -58,11 +56,10 @@ const EventDateAndTime = ({
                     <p className="text-[rgba(34,34,34,0.8)] text-[1.8rem]  ">
                         Event{" "}
                         {eventDuration === "single-day"
-                            ? ""
+                            ? "date and time"
                             : start
-                            ? "start"
-                            : "end"}{" "}
-                        date and time
+                            ? "start date and time"
+                            : "end date"}
                     </p>
                 </div>
 
@@ -112,9 +109,15 @@ const EventDateAndTime = ({
                     />
                 </div>
 
-                <p className="self-center text-[rgba(34,34,34,0.8)]">from</p>
+                {eventFrom && (
+                    <p className="self-center text-[rgba(34,34,34,0.8)]">
+                        from
+                    </p>
+                )}
                 <TimePicker time={eventFrom} setTime={setEventFrom} />
-                <p className="self-center text-[rgba(34,34,34,0.8)]">to</p>
+                {eventTo && (
+                    <p className="self-center text-[rgba(34,34,34,0.8)]">to</p>
+                )}
                 <TimePicker
                     time={eventTo}
                     setTime={setEventTo}

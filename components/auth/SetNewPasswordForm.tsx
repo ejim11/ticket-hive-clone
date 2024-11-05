@@ -4,8 +4,16 @@ import { FallingLines } from "react-loader-spinner";
 import Link from "next/link";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
+import { useRouter } from "next/navigation";
+import { resetPasswordDispatch } from "@/actions/authActions";
+import { toastError, toastSuccess } from "../utils/helper-func";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { LuBadgeAlert } from "react-icons/lu";
 
 const SetNewPasswordForm = () => {
+    const router = useRouter();
+    const dispatchFn = useAppDispatch();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -13,6 +21,8 @@ const SetNewPasswordForm = () => {
     const [passwordErrText, setPasswordErrText] = useState<string>("");
     const [confirmPasswordErrText, setConfirmPasswordErrText] =
         useState<string>("");
+
+    const { otp } = useAppSelector((state) => state.auth);
 
     const onPasswordChangeHandler = (e: any) => {
         setPassword(e.target.value);
@@ -31,6 +41,10 @@ const SetNewPasswordForm = () => {
         }
     };
 
+    const reset = () => {
+        setPassword(""), setConfirmPassword(""), router.replace("/auth/login");
+    };
+
     const togglePasswordVisibleHandler = () => {
         setIsPasswordVisible((prevState) => !prevState);
     };
@@ -41,6 +55,28 @@ const SetNewPasswordForm = () => {
             setPasswordErrText("Password must be at least 8 characters");
             return;
         }
+        if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password)) {
+            setPasswordErrText(
+                "Minimum eight characters, atleast one letter, number and special character"
+            );
+            return;
+        }
+        const data = {
+            otp: +otp,
+            password,
+        };
+
+        dispatchFn(
+            resetPasswordDispatch(
+                data,
+                setIsLoading,
+                toastSuccess,
+                toastError,
+                <FaRegCircleCheck className="w-[2.3rem] h-[2.3rem] text-color-primary-1" />,
+                <LuBadgeAlert className="w-[2.3rem] h-[2.3rem] red" />,
+                reset
+            )
+        );
     };
 
     return (

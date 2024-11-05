@@ -1,27 +1,60 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../assets/logo.svg";
 import { CiSearch } from "react-icons/ci";
 import { VscClose } from "react-icons/vsc";
 import { motion } from "framer-motion";
-import { useAppDispatch } from "@/hooks/customHook";
+import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
 import { searchAndFilterModalActions } from "@/slices/searchAndFilterSlice";
+import { useRouter } from "next/navigation";
+import { searchActions } from "@/slices/searchSlice";
 
 const SearchModal = () => {
+    const router = useRouter();
+
     const dispatch = useAppDispatch();
 
-    const [searchText, setSearchText] = useState<string>("");
-
-    const recentSearches = ["Conference", "Lagos", "Abia", "Block"];
+    const { searchText, recentSearches } = useAppSelector(
+        (state) => state.search
+    );
 
     const onSearchInputChangeHandler = (e: any) => {
-        setSearchText(e.target.value);
+        if (e.target.value === "") {
+            router.replace(`/events`);
+        }
+        dispatch(searchActions.setSearchText(e.target.value));
     };
 
     const onHideSearchModalHandler = () => {
         dispatch(searchAndFilterModalActions.toggleSearchModal(false));
+        dispatch(searchActions.setRecentSearches(searchText));
+        dispatch(searchActions.setSearchText(""));
+        router.replace(`/events`);
     };
+
+    const removeRecentlySearchedTextHandler = (text: string) => {
+        dispatch(searchActions.removeRecentlySearchedText(text));
+    };
+
+    useEffect(() => {
+        let timer: any;
+
+        if (searchText) {
+            timer = setTimeout(() => {
+                const search = searchText
+                    .slice()
+                    .toLowerCase()
+                    .split(" ")
+                    .join("-");
+                router.replace(`/events?name=${search}`);
+            }, 1000);
+        }
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [router, searchText]);
 
     return (
         <motion.div
@@ -61,24 +94,35 @@ const SearchModal = () => {
                     Cancel
                 </button>
             </div>
-            <div className="flex items-center justify-center border-t border-t-[rgba(224,225,230,1)] ">
-                <div className="w-[40%] xmd:w-[90%]   py-[2rem]">
-                    <p className="text-[rgba(16,7,7,0.6)] mb-[1.5rem]">
-                        Recent searches
-                    </p>
-                    <div className="w-full">
-                        {recentSearches.map((searchItem: string) => (
-                            <div
-                                key={searchItem}
-                                className="flex items-center justify-between mb-[1.5rem] last:mb-0 "
-                            >
-                                <p>{searchItem}</p>
-                                <VscClose className="w-[2.4rem] h-[2.4rem] text-[rgba(122,122,122,1)] cursor-pointer" />
-                            </div>
-                        ))}
+            {recentSearches.length > 0 && (
+                <div className="flex items-center justify-center border-t border-t-[rgba(224,225,230,1)] shadow">
+                    <div className="w-[40%] xmd:w-[90%]   py-[2rem]">
+                        <p className="text-[rgba(16,7,7,0.6)] mb-[1.5rem]">
+                            Recent searches
+                        </p>
+                        <div className="w-full">
+                            {recentSearches
+                                .slice(-5)
+                                .map((searchItem: string) => (
+                                    <div
+                                        key={searchItem}
+                                        className="flex items-center justify-between mb-[1.5rem] last:mb-0 "
+                                    >
+                                        <p>{searchItem}</p>
+                                        <VscClose
+                                            className="w-[2.4rem] h-[2.4rem] text-[rgba(122,122,122,1)] cursor-pointer"
+                                            onClick={() => {
+                                                removeRecentlySearchedTextHandler(
+                                                    searchItem
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </motion.div>
     );
 };

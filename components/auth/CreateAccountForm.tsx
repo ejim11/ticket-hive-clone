@@ -4,10 +4,20 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { registrationOption } from "../utils/inputValidators";
 import InputComponent from "../InputComponent";
 import { FallingLines } from "react-loader-spinner";
-import { IoMdLock } from "react-icons/io";
+import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
+import { createUserDispatch } from "@/actions/userActions";
+import { toastError, toastSuccess } from "../utils/helper-func";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { LuBadgeAlert } from "react-icons/lu";
+import { useRouter } from "next/navigation";
 
 const CreateAccountForm = () => {
+    const router = useRouter();
+    const dispatchFn = useAppDispatch();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { details } = useAppSelector((state) => state.user);
+    const { accountType, role } = details;
 
     type FormData = {
         firstName: string;
@@ -30,7 +40,30 @@ const CreateAccountForm = () => {
         },
     });
 
-    const onSubscribeHandler: SubmitHandler<FormData> = () => {};
+    const resetForm = () => {
+        reset({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+        });
+        router.replace("/auth/login");
+    };
+
+    const onSubscribeHandler: SubmitHandler<FormData> = (data) => {
+        const userData = { ...data, accountType, role };
+        dispatchFn(
+            createUserDispatch(
+                userData,
+                setIsLoading,
+                toastSuccess,
+                toastError,
+                <FaRegCircleCheck className="w-[2.3rem] h-[2.3rem] text-color-primary-1" />,
+                <LuBadgeAlert className="w-[2.3rem] h-[2.3rem] red" />,
+                resetForm
+            )
+        );
+    };
     return (
         <div className="font-outfit px-[5rem] 4xl:px-[3rem] 2xl:px-[1rem] sm:px-0 sm:mt-[3rem] flex flex-cols items-center flex-col my-[2rem]">
             <h3 className="text-[4rem] font-medium sm:text-[3rem]">

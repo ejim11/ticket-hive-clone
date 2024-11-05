@@ -6,8 +6,16 @@ import InputComponent from "../InputComponent";
 import { FallingLines } from "react-loader-spinner";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useAppDispatch } from "@/hooks/customHook";
+import { toastError, toastSuccess } from "../utils/helper-func";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { LuBadgeAlert } from "react-icons/lu";
+import { userLoginDispatch } from "@/actions/authActions";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+    const dispatchFn = useAppDispatch();
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [checked, setChecked] = useState(false);
 
@@ -28,7 +36,36 @@ const LoginForm = () => {
         },
     });
 
-    const onSubscribeHandler: SubmitHandler<FormData> = () => {};
+    const resetForm = () => {
+        reset({
+            email: "",
+            password: "",
+        });
+    };
+
+    const nav1 = () => {
+        router.replace("/");
+    };
+
+    const nav2 = () => {
+        router.replace("/dashboard");
+    };
+
+    const onSubscribeHandler: SubmitHandler<FormData> = (data) => {
+        dispatchFn(
+            userLoginDispatch(
+                data,
+                setIsLoading,
+                toastSuccess,
+                toastError,
+                <FaRegCircleCheck className="w-[2.3rem] h-[2.3rem] text-color-primary-1" />,
+                <LuBadgeAlert className="w-[2.3rem] h-[2.3rem] red" />,
+                resetForm,
+                nav1,
+                nav2
+            )
+        );
+    };
 
     return (
         <div className="font-outfit px-[5rem] 2xl:px-[3rem] sm:px-0 flex flex-cols items-center flex-col my-[2rem] sm:mt-[3rem]">

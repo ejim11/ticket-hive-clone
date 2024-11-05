@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+import Link from "next/link";
 import React from "react";
 
 const BringYourVision = () => {
@@ -12,12 +13,12 @@ const BringYourVision = () => {
                 Whether it's a concert, conference, festival, or workshop, our
                 platform makes it effortless to create and manage your event. 
             </p>
-            <button
-                type="button"
+            <Link
+                href="/auth/login"
                 className="bg-[rgba(255,255,255,0.3)] text-color-white-1 py-[1rem] px-[2rem] rounded-[0.6rem] mt-[4rem]"
             >
                 Create Event
-            </button>
+            </Link>
         </section>
     );
 };

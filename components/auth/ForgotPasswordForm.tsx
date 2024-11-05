@@ -7,8 +7,15 @@ import { FallingLines } from "react-loader-spinner";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/hooks/customHook";
+import { authActions } from "@/slices/authSlice";
+import { forgotPasswordDispatch } from "@/actions/authActions";
+import { toastError, toastSuccess } from "../utils/helper-func";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { LuBadgeAlert } from "react-icons/lu";
 
 const ForgotPasswordForm = () => {
+    const dispatchFn = useAppDispatch();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
@@ -27,8 +34,25 @@ const ForgotPasswordForm = () => {
         },
     });
 
-    const onSubscribeHandler: SubmitHandler<FormData> = () => {
-        router.push("/auth/forgot-password/otp");
+    const resetForm = () => {
+        reset({
+            email: "",
+        });
+        router.replace("/auth/forgot-password/otp");
+    };
+
+    const onSubscribeHandler: SubmitHandler<FormData> = (data) => {
+        dispatchFn(
+            forgotPasswordDispatch(
+                data.email,
+                setIsLoading,
+                toastSuccess,
+                toastError,
+                <FaRegCircleCheck className="w-[2.3rem] h-[2.3rem] text-color-primary-1" />,
+                <LuBadgeAlert className="w-[2.3rem] h-[2.3rem] red" />,
+                resetForm
+            )
+        );
     };
 
     return (

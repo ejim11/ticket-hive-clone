@@ -3,15 +3,24 @@ import React, { ReactNode, useState } from "react";
 import { LuCalendarDays } from "react-icons/lu";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
+import { userActions } from "@/slices/userSlice";
 
 const SelectAccountType = () => {
     const [mouseOnBtn, setMouseOnBtn] = useState<any>();
-    const [accountType, setAccountType] = useState<string>("");
+    // const [accountType, setAccountType] = useState<string>("");
+
+    const { details } = useAppSelector((state) => state.user);
+
+    const dispatchFn = useAppDispatch();
+
+    const { accountType } = details;
 
     type AccountType = {
         icon: ReactNode;
         title: string;
         text: string;
+        enum: string;
     };
     const accountTypes: AccountType[] = [
         {
@@ -20,6 +29,7 @@ const SelectAccountType = () => {
             ),
             title: "Event Organiser",
             text: "Create, manage, and promote events effortlessly",
+            enum: "eventOrganiser",
         },
         {
             icon: (
@@ -27,15 +37,27 @@ const SelectAccountType = () => {
             ),
             title: "Ticket Purchaser",
             text: "Browse and buy tickets to your favorite events hassle-free",
+            enum: "ticketPurchaser",
         },
     ];
 
     const onSelectAccountType = (accType: AccountType) => {
         if (accountType === accType.title) {
-            setAccountType("");
+            dispatchFn(
+                userActions.setAccountTypeAndRole({
+                    accountType: "",
+                    role: "",
+                })
+            );
             return;
         }
-        setAccountType(accType.title);
+
+        dispatchFn(
+            userActions.setAccountTypeAndRole({
+                accountType: accType.enum,
+                role: accType.enum,
+            })
+        );
     };
 
     return (
@@ -51,7 +73,7 @@ const SelectAccountType = () => {
                     <button
                         key={accType.title}
                         className={`flex flex-col items-center border  flex-1 mr-[3rem] sm:mr-0 sm:mb-[3rem] last:mr-0 p-[3rem] rounded-[0.8rem]  hover:text-color-purple-1 hover:border-color-purple-1 transition-all duration-150 ease-in ${
-                            accountType === accType.title
+                            accountType === accType.enum
                                 ? "bg-[#F3EDFF] text-color-purple-1 border-color-purple-1"
                                 : "bg-color-transparent text-[#E0E1E6] border-[#E0E1E6]"
                         } `}
@@ -68,8 +90,7 @@ const SelectAccountType = () => {
                         {accType.icon}
                         <p
                             className={` mt-[3rem] font-medium text-[2rem] ${
-                                mouseOnBtn === i ||
-                                accountType === accType.title
+                                mouseOnBtn === i || accountType === accType.enum
                                     ? "text-color-purple-1"
                                     : "text-[#222222CC]"
                             }`}
@@ -81,7 +102,7 @@ const SelectAccountType = () => {
                         </p>
                         <div
                             className={`w-[2.4rem] h-[2.4rem] rounded-full mt-auto ${
-                                accountType === accType.title
+                                accountType === accType.enum
                                     ? "border-[0.5rem]"
                                     : "border-[0.15rem]"
                             }  border-color-inherit mt-[3rem]`}

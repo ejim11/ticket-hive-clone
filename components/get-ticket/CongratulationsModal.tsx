@@ -71,9 +71,10 @@ const CongratulationsModal = ({
                 <p className="font-normal">
                     You’ve successfully a purchased ticket for:
                 </p>
-                <p className="uppercase">{eventTitle}</p>
+                <p className="uppercase text-color-purple-1">{eventTitle}</p>
+                <p className="">See ticket in email</p>
                 <div className="flex flex-col mt-[4rem] w-full">
-                    <button
+                    {/* <button
                         type="button"
                         className="text-[rgba(255,255,255,0.9)] bg-color-purple-1 w-full py-[1.5rem] text-[1.8rem] mb-[1.5rem] rounded-[0.8rem]"
                         onClick={() => {
@@ -81,7 +82,7 @@ const CongratulationsModal = ({
                         }}
                     >
                         See ticket in email
-                    </button>
+                    </button> */}
                     <button
                         type="button"
                         className="text-color-purple-1 bg-[rgba(243,237,255,1)] w-full py-[1.5rem] text-[1.8rem] mb-[1.5rem] rounded-[0.8rem]"

@@ -5,15 +5,29 @@ import InputComponent from "../InputComponent";
 import { FallingLines } from "react-loader-spinner";
 import formatAmount from "../utils/formatAmount";
 import CongratulationsModal from "./CongratulationsModal";
+import { usePathname, useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
+import { payForEventDispatch } from "@/actions/eventActions";
+import { toastError, toastSuccess } from "../utils/helper-func";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { LuBadgeAlert } from "react-icons/lu";
 
 const CompleteYourInfo = ({
-    ticketType,
+    ticket,
     setDisplayCongratsModal,
 }: {
-    ticketType: any;
+    ticket: any;
     setDisplayCongratsModal: Function;
 }) => {
+    const router = useRouter();
+
+    const dispatch = useAppDispatch();
+
+    const pathname = usePathname();
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { token } = useAppSelector((state) => state.auth);
 
     type FormData = {
         firstName: string;
@@ -34,8 +48,23 @@ const CompleteYourInfo = ({
         },
     });
 
-    const onSubmitCompleteInfo: SubmitHandler<FormData> = () => {
-        setDisplayCongratsModal(true);
+    const resetForm = (link: string) => {
+        reset({
+            firstName: "",
+            lastName: "",
+            email: "",
+        });
+
+        router.push(link);
+    };
+
+    const onSubmitCompleteInfo: SubmitHandler<FormData> = (data) => {
+        const eventData: { eventId: number; ticketType: string } = {
+            eventId: +pathname.slice().split("/")[2],
+            ticketType: ticket.type,
+        };
+
+        // setDisplayCongratsModal(true);
     };
 
     return (
@@ -95,10 +124,10 @@ const CompleteYourInfo = ({
                     />
                 ) : (
                     `get your ticket ${
-                        ticketType
-                            ? ticketType.price === 0
+                        ticket
+                            ? ticket.price === 0
                                 ? " - Free"
-                                : `- ₦${formatAmount(String(ticketType.price))}`
+                                : `- ₦${formatAmount(String(ticket.price))}`
                             : ""
                     } `
                 )}

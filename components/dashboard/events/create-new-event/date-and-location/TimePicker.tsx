@@ -11,8 +11,8 @@ const TimePicker = ({
     setTime,
     eventFrom,
 }: {
-    time: string;
-    setTime: Function;
+    time?: string;
+    setTime?: Function;
     eventFrom?: string;
 }) => {
     const [isTimesModalVisible, setIsTimesModalVisible] = useState(false);
@@ -44,7 +44,7 @@ const TimePicker = ({
 
     const onChangeHandler = (e: any) => {
         setIsTimesModalVisible(false);
-        setTime(e.target.value);
+        if (setTime) setTime(e.target.value);
     };
 
     const checkTimeDiff = (chosenTime: any) => {
@@ -70,7 +70,11 @@ const TimePicker = ({
     };
 
     return (
-        <div className="flex   border border-[rgba(223,225,228,1)] px-[1rem] py-[0.5rem] rounded-[0.6rem] relative">
+        <div
+            className={`${
+                time ? "flex" : "hidden"
+            }   border border-[rgba(223,225,228,1)] px-[1rem] py-[0.5rem] rounded-[0.6rem] relative`}
+        >
             <input
                 name="datalist-start-times"
                 id="datalist-start-times"
@@ -102,7 +106,7 @@ const TimePicker = ({
                                 key={time}
                                 className="w-[23%] text-[1.4rem] border border-color-purple-1  text-color-purple-1 bg-color-white-1 rounded-[0.6rem] mb-[1rem] hover:bg-color-purple-1 hover:text-color-white-1 transition-all ease-in duration-150 disabled:text-color-purple-3 disabled:border-color-purple-3"
                                 onClick={() => {
-                                    setTime(time + ":00");
+                                    if (setTime) setTime(time + ":00");
                                     setIsTimesModalVisible(false);
                                 }}
                             >

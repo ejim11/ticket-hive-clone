@@ -6,8 +6,14 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { registrationOption } from "../components/utils/inputValidators";
 import InputComponent from "./InputComponent";
 import { FallingLines } from "react-loader-spinner";
+import { useAppDispatch } from "@/hooks/customHook";
+import { toastError, toastSuccess } from "./utils/helper-func";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { LuBadgeAlert } from "react-icons/lu";
+import { subscribeToNewsLetterDispatch } from "@/actions/subscriberAction";
 
 const SubscribeToNewsLetter = () => {
+    const dispatch = useAppDispatch();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     type FormData = {
@@ -25,7 +31,25 @@ const SubscribeToNewsLetter = () => {
         },
     });
 
-    const onSubscribeHandler: SubmitHandler<FormData> = () => {};
+    const resetForm = () => {
+        reset({
+            email: "",
+        });
+    };
+
+    const onSubscribeHandler: SubmitHandler<FormData> = (data) => {
+        dispatch(
+            subscribeToNewsLetterDispatch(
+                data.email,
+                setIsLoading,
+                toastSuccess,
+                toastError,
+                <FaRegCircleCheck className="w-[2.3rem] h-[2.3rem] text-color-primary-1" />,
+                <LuBadgeAlert className="w-[2.3rem] h-[2.3rem] red" />,
+                resetForm
+            )
+        );
+    };
 
     return (
         <div className="p-[10rem] 2xl:px-[8rem] xlg:px-[3rem] sm:px-[2rem] flex justify-between border-b border-[rgba(255,255,255,.5)] smd:flex-col">

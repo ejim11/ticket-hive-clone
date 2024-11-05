@@ -35,8 +35,8 @@ export const toastSuccess = (msg: string, icon: any) => {
         progress: undefined,
         theme: "light",
         transition: Bounce,
-        style: { color: "rgba(67, 104, 80)" },
-        progressStyle: { background: "rgba(67, 104, 80)" },
+        style: { color: "rgba(131, 66, 255, 1)" },
+        progressStyle: { background: "rgba(131, 66, 255, 1)" },
         icon: icon,
     });
 };
