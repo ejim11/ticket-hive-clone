@@ -10,7 +10,7 @@ export default function Page() {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        {events.length > 0 && <Events />}
+        {events.length && <Events />}
       </Suspense>
     </>
   );
