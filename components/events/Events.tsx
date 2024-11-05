@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import EventListItem from "../EventListItem";
@@ -13,21 +13,24 @@ import EventSkeleton from "../skeletons/EventSkeleton";
 import { getAllEventsDispatch } from "@/actions/eventActions";
 import { searchForEventDispatch } from "@/actions/searchActions";
 import { sortEvents } from "../utils/sortEvents";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { eventsActions } from "@/slices/eventSlice";
 
-const Events = ({
-  searchParams,
-}: {
-  searchParams: {
-    name?: string;
-    category?: string;
-    date?: string;
-    price?: string;
-    attendance?: string;
-    sort?: any;
-  };
-}) => {
+const Events = () => {
+  const searchParams = useSearchParams();
+
+  // Convert searchParams to an object if needed
+  const searchParamsObject = useMemo(
+    () => ({
+      name: searchParams.get("name") || undefined,
+      category: searchParams.get("category") || undefined,
+      date: searchParams.get("date") || undefined,
+      price: searchParams.get("price") || undefined,
+      attendance: searchParams.get("attendance") || undefined,
+      sort: searchParams.get("sort") || undefined,
+    }),
+    [searchParams]
+  );
   const router = useRouter();
 
   const dispatch = useAppDispatch();
@@ -64,7 +67,8 @@ const Events = ({
   useEffect(() => {
     console.log(searchParams);
     console.log("searching for params");
-    const { name, category, date, price, attendance, sort } = searchParams;
+    const { name, category, date, price, attendance, sort } =
+      searchParamsObject;
 
     if (name || category || date || price || attendance) {
       console.log(`Searchin`);
@@ -81,10 +85,10 @@ const Events = ({
     } else {
       dispatch(getAllEventsDispatch(sort));
     }
-  }, [dispatch, searchParams]);
+  }, [dispatch, searchParamsObject]);
 
   const sortEventsHandler = (sort: string) => {
-    const { category, price, date, attendance } = searchParams;
+    const { category, price, date, attendance } = searchParamsObject;
 
     const filteredQuery = [
       category && `category=${category}`,
