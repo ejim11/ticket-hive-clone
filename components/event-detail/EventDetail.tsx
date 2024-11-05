@@ -12,6 +12,7 @@ import { useAppSelector } from "@/hooks/customHook";
 import formatDate from "../utils/formatDate";
 
 const EventDetail = ({ param }: { param: string }) => {
+  const [expanded, setExpanded] = useState<false | number>(false);
   const router = useRouter();
 
   const { events } = useAppSelector((state) => state.event);
@@ -20,19 +21,27 @@ const EventDetail = ({ param }: { param: string }) => {
     (eventItem: any) => eventItem.id === Number(param)
   );
 
-  const { dateInNumber, month, year }: any = formatDate(event.eventStartDate);
+  let endString: string = "";
+  let fullString: string = "";
 
-  const {
-    dateInNumber: endDateInNumber,
-    month: endMonth,
-    year: endYear,
-  }: any = formatDate(event.eventEndDate);
+  if (event) {
+    const { dateInNumber, month, year }: any =
+      event && formatDate(event.eventStartDate);
 
-  const formattedDateStr = `${dateInNumber} ${month}, ${year} ${
-    event.eventEndDate && ` - ${endDateInNumber} ${endMonth}, ${endYear} `
-  }`;
+    if (event.eventEndDate) {
+      const {
+        dateInNumber: endDateInNumber,
+        month: endMonth,
+        year: endYear,
+      }: any = formatDate(event.eventEndDate);
 
-  const [expanded, setExpanded] = useState<false | number>(false);
+      endString = `${endDateInNumber} ${endMonth}, ${endYear}`;
+    }
+
+    fullString = event.eventEndDate
+      ? `${dateInNumber} ${month}, ${year}` + endString
+      : `${dateInNumber} ${month}, ${year}`;
+  }
 
   const eventInfo: { title: string; component: React.ReactNode }[] = event && [
     {
@@ -43,7 +52,7 @@ const EventDetail = ({ param }: { param: string }) => {
       title: "DATE & TIME",
       component: (
         <EventDateAndTime
-          date={formattedDateStr}
+          date={fullString}
           time={`${event.eventStartTime} - ${event.eventEndTime}`}
         />
       ),
@@ -61,6 +70,10 @@ const EventDetail = ({ param }: { param: string }) => {
     // },
   ];
 
+  useEffect(() => {
+    window.scrollTo({ top: -90, behavior: "smooth" });
+  }, []);
+
   const navigateToGetTicketPage = () => {
     router.push(`/events/${param}/get-ticket`);
   };
@@ -68,10 +81,6 @@ const EventDetail = ({ param }: { param: string }) => {
   const eventMinimumPrice = event?.tickets
     .slice()
     .sort((a: any, b: any) => a.price - b.price)[0].price;
-
-  useEffect(() => {
-    window.scrollTo({ top: -90, behavior: "smooth" });
-  }, []);
 
   return (
     <>
