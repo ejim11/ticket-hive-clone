@@ -58,7 +58,11 @@ const Events = ({
     window.scrollTo({ top: -90, behavior: "smooth" });
   }, []);
 
+  console.log("is ite even here");
+
   useEffect(() => {
+    console.log(searchParams);
+    console.log("searching for params");
     const { name, category, date, price, attendance, sort } = searchParams;
 
     if (name || category || date || price || attendance) {
