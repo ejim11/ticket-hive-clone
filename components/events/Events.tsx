@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdKeyboardArrowDown } from "react-icons/md";
