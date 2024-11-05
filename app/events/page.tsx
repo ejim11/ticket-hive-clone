@@ -3,7 +3,7 @@
 import React from "react";
 import Events from "@/components/events/Events";
 
-const page = ({
+export default function Page({
   searchParams,
 }: {
   searchParams: {
@@ -14,10 +14,8 @@ const page = ({
     attendance?: string;
     sort?: string;
   };
-}) => {
+}) {
   console.log("starting");
   console.log(searchParams);
   return <Events searchParams={searchParams} />;
-};
-
-export default page;
+}
