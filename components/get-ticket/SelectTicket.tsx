@@ -68,7 +68,7 @@ const SelectTicket = ({ tickets }: { tickets: any[] }) => {
   checkTicketQuantities();
 
   return (
-    <div className=" w-full hidden flex-col">
+    <div className=" w-full flex flex-col">
       <div className="flex font-outfit flex-wrap xlg:grid xlg:grid-cols-2 sm:grid-cols-1 xlg:gap-[2rem] w-full">
         {uniqueTickets.map((ticket: any, i: number) => (
           <TicketItem
