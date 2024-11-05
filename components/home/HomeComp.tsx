@@ -39,9 +39,9 @@ const HomeComp = () => {
           <div className=" flex sm:flex-col">
             <Link
               href={"/events"}
-              className="relative bg-color-purple-1 text-color-white-1 blurred-button px-[3.5rem] py-[1.5rem] rounded-[0.6rem] mr-[2rem] sm:mr-0 sm:mb-[2rem] hover:bg-[rgba(243,237,255,1)] hover:text-color-purple-1 transition-all duration-150 ease-in  sm:text-center"
+              className="relative bg-color-purple-1 text-color-white-1 blurred-button px-[3.5rem] py-[1.5rem] rounded-[0.6rem] mr-[2rem] sm:mr-0 sm:mb-[2rem] hover:bg-[rgba(243,237,255,1)] hover:text-color-purple-1 transition-all duration-150 ease-in sm:text-center"
             >
-              <span className="absolute blur-item bottom-0 top-0 left-0 right-0 bg-[rgba(255,255,255,0.2)] z-20 rounded-[0.6rem]"></span>
+              <span className="absolute blur-item bottom-0 top-0 left-0 right-0 bg-[rgba(255,255,255,0.2)] z-20 rounded-[0.6rem  "></span>
               <span className=" z-30 relative">Get ticket</span>
             </Link>
             <Link
