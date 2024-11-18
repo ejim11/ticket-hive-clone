@@ -71,9 +71,7 @@ const TimePicker = ({
 
     return (
         <div
-            className={`${
-                time ? "flex" : "hidden"
-            }   border border-[rgba(223,225,228,1)] px-[1rem] py-[0.5rem] rounded-[0.6rem] relative`}
+            className={`flex   border border-[rgba(223,225,228,1)] px-[1rem] py-[0.5rem] rounded-[0.6rem] relative`}
         >
             <input
                 name="datalist-start-times"

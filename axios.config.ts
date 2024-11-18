@@ -21,6 +21,10 @@ export const events = axios.create({
     baseURL: `${base}/api/v1/events`,
 });
 
+export const tickets = axios.create({
+    baseURL: `${base}/api/v1/tickets`,
+});
+
 export const paystack = axios.create({
     baseURL: `${base}/api/v1/paystack`,
 });

@@ -4,7 +4,7 @@ const eventSlice = createSlice({
     name: "event",
     initialState: {
         events: [],
-        isLoading: false,
+        isLoading: true,
     },
     reducers: {
         setEvents(state: any, action) {

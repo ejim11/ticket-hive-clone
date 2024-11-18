@@ -36,10 +36,10 @@ const TicketTableItem = ({
             title: "ticket type",
             value: ticketType,
         },
-        {
-            title: "quantity",
-            value: quantity,
-        },
+        // {
+        //     title: "quantity",
+        //     value: quantity,
+        // },
         {
             title: "request date",
             value: requestDate,

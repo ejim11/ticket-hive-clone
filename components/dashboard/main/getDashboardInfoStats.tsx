@@ -16,11 +16,14 @@ const getThePreviousMonth = (currMonth: string) => {
 };
 
 const getPercentChange = (prevValue: number, currentValue: number) => {
+    if (prevValue === 0) {
+        return 100;
+    }
     return Math.round(((currentValue - prevValue) / prevValue) * 100);
 };
 
 export const getDashboardInfoStats = (month: string, events: any) => {
-    if (!month || month === "all") {
+    if (!month || month === "all" || events.length === 0) {
         return {
             ticketPerMonth: events.map((event: any) => event.tickets).flat(),
             filteredEvents: events,
@@ -28,9 +31,7 @@ export const getDashboardInfoStats = (month: string, events: any) => {
     }
 
     const previousMonthEvents = events.filter((event: any) => {
-        let monthIndex = new Date(
-            event.createdAt.replace(/-/g, "/")
-        ).getMonth();
+        let monthIndex = new Date(event.createdAt).getMonth();
         if (monthIndex) {
             return (
                 dashboardMonthsData[monthIndex].month ===
@@ -42,9 +43,7 @@ export const getDashboardInfoStats = (month: string, events: any) => {
     });
 
     const currentMonthEvents = events.filter((event: any) => {
-        let monthIndex = new Date(
-            event.createdAt.replace(/-/g, "/")
-        ).getMonth();
+        let monthIndex = new Date(event.createdAt).getMonth();
         if (monthIndex) {
             return dashboardMonthsData[monthIndex].month === month;
         } else {
@@ -61,9 +60,7 @@ export const getDashboardInfoStats = (month: string, events: any) => {
         .map((ev: any) => ev.tickets)
         .flat()
         .filter((tic: any) => {
-            let monthIndex = new Date(
-                tic.dateCreated.replace(/-/g, "/")
-            ).getMonth();
+            let monthIndex = new Date(tic.createdAt).getMonth();
 
             if (monthIndex) {
                 return (
@@ -79,9 +76,7 @@ export const getDashboardInfoStats = (month: string, events: any) => {
         .map((ev: any) => ev.tickets)
         .flat()
         .filter((tic: any) => {
-            let monthIndex = new Date(
-                tic.dateCreated.replace(/-/g, "/")
-            ).getMonth();
+            let monthIndex = new Date(tic.createdAt).getMonth();
             if (monthIndex) {
                 return dashboardMonthsData[monthIndex].month === month;
             } else {
@@ -121,9 +116,7 @@ export const getDashboardInfoStats = (month: string, events: any) => {
     );
 
     const filteredEvents = events.filter((event: any) => {
-        let monthIndex = new Date(
-            event.createdAt.replace(/-/g, "/")
-        ).getMonth();
+        let monthIndex = new Date(event.createdAt).getMonth();
         if (monthIndex) {
             return dashboardMonthsData[monthIndex].month === month;
         } else {
@@ -135,9 +128,9 @@ export const getDashboardInfoStats = (month: string, events: any) => {
         .map((ev: any) => ev.tickets)
         .flat()
         .filter((tic: any) => {
-            let monthIndex = new Date(
-                tic.dateCreated.replace(/-/g, "/")
-            ).getMonth();
+            let monthIndex = new Date(tic.createdAt).getMonth();
+
+            console.log(monthIndex);
 
             if (monthIndex) {
                 return dashboardMonthsData[monthIndex].month === month;
@@ -147,7 +140,7 @@ export const getDashboardInfoStats = (month: string, events: any) => {
         });
 
     const ticketSoldPerMonth = ticketPerMonth.filter(
-        (tic: any) => tic.status === "sold"
+        (tic: any) => tic.ticketStatus === "sold"
     );
 
     const totalRevenuePerMonth = ticketSoldPerMonth

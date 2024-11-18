@@ -1,5 +1,13 @@
-import { formatDate } from "@/components/utils/helper-func";
+// import { formatDate } from "@/components/utils/helper-func";
 import { createSlice } from "@reduxjs/toolkit";
+
+function formatDate(date: any) {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0"); // Month is zero-based
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
 
 const createNewEventSlice = createSlice({
     name: "createNewEvent",
@@ -17,7 +25,7 @@ const createNewEventSlice = createSlice({
             category: "",
             description: "",
             eventStartDate: formatDate(new Date().toDateString()),
-            eventEndDate: formatDate(new Date().toDateString()),
+            eventEndDate: "",
             eventDuration: "single-day",
             eventStartFrom: "",
             eventStartTo: "",

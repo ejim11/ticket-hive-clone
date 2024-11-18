@@ -6,6 +6,7 @@ import userSlice from "./slices/userSlice";
 import authSlice from "./slices/authSlice";
 import eventSlice from "./slices/eventSlice";
 import searchSlice from "./slices/searchSlice";
+import dashboardSlice from "./slices/dashboardSlice";
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         auth: authSlice.reducer,
         event: eventSlice.reducer,
         search: searchSlice.reducer,
+        dashboard: dashboardSlice.reducer,
     },
 });
 

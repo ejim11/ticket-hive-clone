@@ -23,6 +23,34 @@ const CreateNewEventModal = () => {
 
     const animate = { opacity: 1, x: 0 };
 
+    const closeCreateNewEventModalHandler = () => {
+        dispatchFn(createNewEventActions.toggleCreateEventModal(false));
+        dispatchFn(
+            createNewEventActions.setEventDetail({
+                name: "",
+                category: "",
+                description: "",
+                eventStartDate: formatDate(new Date().toDateString()),
+                eventEndDate: "",
+                eventDuration: "single-day",
+                eventStartFrom: "",
+                eventStartTo: "",
+                venue: "",
+                address: "",
+                virtualLink: "",
+                choosenLocationTypes: [],
+            })
+        );
+    };
+
+    const onCloseCreateNewEventModalHandler = (e: any) => {
+        e.stopPropagation();
+        if (e.target.dataset.close) {
+            closeCreateNewEventModalHandler();
+            return;
+        }
+    };
+
     const createNewEventForms = [
         {
             title: "Event Details",
@@ -42,39 +70,15 @@ const CreateNewEventModal = () => {
         },
         {
             title: "Ticket Info",
-            component: <TicketInfo setFormIndex={setFormIndex} />,
+            component: (
+                <TicketInfo
+                    setFormIndex={setFormIndex}
+                    imageObj={imageObj}
+                    closeModal={closeCreateNewEventModalHandler}
+                />
+            ),
         },
     ];
-
-    const closeCreateNewEventModalHandler = () => {
-        dispatchFn(createNewEventActions.toggleCreateEventModal(false));
-        dispatchFn(
-            createNewEventActions.setEventDetail({
-                name: "",
-                category: "",
-                description: "",
-                eventStartDate: formatDate(new Date().toDateString()),
-                eventEndDate: formatDate(new Date().toDateString()),
-                eventDuration: "single-day",
-                eventStartFrom: "",
-                eventStartTo: "",
-                eventEndFrom: "",
-                eventEndTo: "",
-                venue: "",
-                address: "",
-                virtualLink: "",
-                choosenLocationTypes: [],
-            })
-        );
-    };
-
-    const onCloseCreateNewEventModalHandler = (e: any) => {
-        e.stopPropagation();
-        if (e.target.dataset.close) {
-            closeCreateNewEventModalHandler();
-            return;
-        }
-    };
 
     return (
         <motion.div

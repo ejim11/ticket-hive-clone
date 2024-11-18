@@ -5,7 +5,9 @@ import {
     resetPassword,
     sendRefreshToken,
 } from "@/services/authService";
+import { getDashboardTickets } from "@/services/dashboardServices";
 import { authActions } from "@/slices/authSlice";
+import { dashboardActions } from "@/slices/dashboardSlice";
 import { userActions } from "@/slices/userSlice";
 import { ReactNode } from "react";
 
@@ -30,12 +32,27 @@ export const userLoginDispatch =
 
             const { accessToken, refreshToken, user } = res.data.data;
 
-            dispatch(userActions.setUserDetails(user));
+            if (user.role === "ticketPurchaser") {
+                dispatch(userActions.setUserDetails(user));
+            } else {
+                dispatch(
+                    dashboardActions.setDashboardDetails({
+                        firstname: user.firstName,
+                        lastname: user.lastName,
+                        email: user.email,
+                        id: user.id,
+                    })
+                );
+
+                // const res2 = await getDashboardTickets(accessToken);
+                // // dispatch()
+                // dispatch(
+                //     dashboardActions.setDashboardTickets(res2.data.data.data)
+                // );
+            }
 
             // login expires an hour
             const expirationTime = new Date(new Date().getTime() + 3600 * 1000);
-
-            console.log(new Date());
 
             // calculating the remaining time
             const remainingTime = calculateExpirationTime(

@@ -13,8 +13,6 @@ const DateAndLocation = ({ setFormIndex }: { setFormIndex: Function }) => {
         eventEndDate: endDate,
         eventStartFrom,
         eventStartTo,
-        eventEndFrom,
-        eventEndTo,
         eventDuration,
         venue,
         address,
@@ -41,20 +39,6 @@ const DateAndLocation = ({ setFormIndex }: { setFormIndex: Function }) => {
         dispatchFn(createNewEventActions.setEventDetail({ eventStartTo: val }));
     };
 
-    const setEventEndFrom = (val: any) => {
-        dispatchFn(createNewEventActions.setEventDetail({ eventEndFrom: val }));
-    };
-
-    const setEventEndTo = (val: any) => {
-        dispatchFn(createNewEventActions.setEventDetail({ eventEndTo: val }));
-    };
-
-    // useEffect(() => {
-    //     dispatchFn(
-    //         createNewEventActions.setEventDetail({ eventEndDate: startDate })
-    //     );
-    // }, [startDate]);
-
     const isBtnDisabled =
         !!startDate &&
         !!eventStartFrom &&
@@ -78,10 +62,6 @@ const DateAndLocation = ({ setFormIndex }: { setFormIndex: Function }) => {
                         date={endDate}
                         setDate={setEndDate}
                         startDate={startDate}
-                        // eventFrom={eventEndFrom}
-                        // setEventFrom={setEventEndFrom}
-                        // eventTo={eventEndTo}
-                        // setEventTo={setEventEndTo}
                     />
                 )}
                 <Location />

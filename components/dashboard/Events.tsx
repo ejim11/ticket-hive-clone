@@ -1,9 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { lazy, Suspense, useRef, useState } from "react";
 import DashboardCover from "./DashboardCover";
 import SearchAndFilterSection from "./main/SearchAndFilterSection";
-import EventItem from "./events/EventItem";
-import { eventsDashboardData } from "../utils/data";
 import ReactPaginate from "react-paginate";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { getDashboardInfoStats } from "./main/getDashboardInfoStats";
@@ -11,9 +9,15 @@ import CreateNewEventModal from "./events/create-new-event/CreateNewEventModal";
 import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
 import { createNewEventActions } from "@/slices/createNewEventSlice";
 import { AnimatePresence } from "framer-motion";
+import DashboardEventSkeleton from "../skeletons/DashboardEventSkeleton";
+const EventItem = lazy(() => import("./events/EventItem"));
 
 const Events = () => {
     const dispatcFn = useAppDispatch();
+
+    const sectionRef: any = useRef(null);
+
+    const { events, isLoading } = useAppSelector((state) => state.dashboard);
 
     const { isCreateEventModalVisible } = useAppSelector(
         (state) => state.createNewEvent
@@ -27,13 +31,10 @@ const Events = () => {
 
     const [sideModalIndex, setSideModalIndex] = useState<number | null>(null);
 
-    const { filteredEvents } = getDashboardInfoStats(
-        monthFilter,
-        eventsDashboardData
-    );
+    const { filteredEvents } = getDashboardInfoStats(monthFilter, events);
 
     const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 20;
+    const itemsPerPage = 10;
 
     const endOffset = itemOffset + itemsPerPage;
     const currentItems = [...filteredEvents]
@@ -51,6 +52,10 @@ const Events = () => {
     const paginateNavStyle =
         "block  bg-color-purple-1 py-[0.5rem] px-[1rem] rounded-lg  border border-color-purple-1 text-color-white-1 hover:bg-color-purple-2 transition-all tableData-200 ease-in capitalize ";
 
+    const scrollToSection = () => {
+        sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
     return (
         <DashboardCover
             title="Events"
@@ -61,18 +66,42 @@ const Events = () => {
                 monthFilter={monthFilter}
                 setMonthFilter={setMonthFilter}
             />
-            <div className="px-[4rem] py-[3rem] md:px-[2.5rem] sm:px-[2rem]">
-                <div>
-                    {currentItems.map((event: any, index: number) => (
-                        <EventItem
-                            key={index}
-                            index={index}
-                            setSideModalIndex={setSideModalIndex}
-                            sideModalIndex={sideModalIndex}
-                            event={event}
-                        />
-                    ))}
-                </div>
+            <div
+                className="px-[4rem] py-[3rem] md:px-[2.5rem] sm:px-[2rem]"
+                ref={sectionRef}
+            >
+                {isLoading && (
+                    <>
+                        <DashboardEventSkeleton />
+                        <DashboardEventSkeleton />
+                        <DashboardEventSkeleton />
+                        <DashboardEventSkeleton />
+                    </>
+                )}
+                <Suspense
+                    fallback={
+                        <>
+                            <DashboardEventSkeleton />
+                            <DashboardEventSkeleton />
+                            <DashboardEventSkeleton />
+                            <DashboardEventSkeleton />
+                        </>
+                    }
+                >
+                    {currentItems.length > 0 && !isLoading && (
+                        <div>
+                            {currentItems.map((event: any, index: number) => (
+                                <EventItem
+                                    key={index}
+                                    index={index}
+                                    setSideModalIndex={setSideModalIndex}
+                                    sideModalIndex={sideModalIndex}
+                                    event={event}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </Suspense>
 
                 {/* react paginate */}
                 <div className="flex mt-[2rem] px-[2rem] pt-[2rem] pb-[3rem]">
@@ -101,6 +130,9 @@ const Events = () => {
                         nextLinkClassName={paginateNavStyle}
                         pageLinkClassName="paginate-page-link"
                         activeLinkClassName="paginate-active-page-link"
+                        onClick={() => {
+                            scrollToSection();
+                        }}
                     />
                 </div>
             </div>

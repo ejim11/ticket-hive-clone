@@ -1,6 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
-import { LuClock } from "react-icons/lu";
+import React from "react";
 import TimePicker from "./TimePicker";
 import { formatDate } from "@/components/utils/helper-func";
 import { motion } from "framer-motion";
@@ -102,27 +101,35 @@ const EventDateAndTime = ({
                         name="event-date"
                         id="event-date"
                         className="w-[12rem] absolute top-1 bottom-1 left-1   px-[1rem] py-[0.5rem] rounded-[0.6rem] right-0 outline-none focus:ring-0 focus:outline-none"
-                        value={formatDate(new Date(date).toDateString())}
+                        value={
+                            date
+                                ? formatDate(new Date(date).toDateString())
+                                : ""
+                        }
                         onChange={() => {
                             return;
                         }}
                     />
                 </div>
+                {start && (
+                    <>
+                        <p className="self-center text-[rgba(34,34,34,0.8)]">
+                            from
+                        </p>
 
-                {eventFrom && (
-                    <p className="self-center text-[rgba(34,34,34,0.8)]">
-                        from
-                    </p>
+                        <TimePicker time={eventFrom} setTime={setEventFrom} />
+
+                        <p className="self-center text-[rgba(34,34,34,0.8)]">
+                            to
+                        </p>
+
+                        <TimePicker
+                            time={eventTo}
+                            setTime={setEventTo}
+                            eventFrom={eventFrom}
+                        />
+                    </>
                 )}
-                <TimePicker time={eventFrom} setTime={setEventFrom} />
-                {eventTo && (
-                    <p className="self-center text-[rgba(34,34,34,0.8)]">to</p>
-                )}
-                <TimePicker
-                    time={eventTo}
-                    setTime={setEventTo}
-                    eventFrom={eventFrom}
-                />
             </div>
         </motion.div>
     );

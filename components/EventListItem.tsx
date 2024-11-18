@@ -57,8 +57,21 @@ const EventListItem = ({ event, index }: { event: any; index?: number }) => {
                 </p>
                 <div className="flex items-center text-color-black-2 mb-[0.5rem] z-30 relative">
                     <IoLocationOutline className="text-color-current mr-[0.5rem]" />
-                    <p className="text-[1.4rem]">
-                        {event.venue}, {event.address}
+                    <p className="text-[1.4rem] flex">
+                        {event.venue && event.address ? (
+                            <span>
+                                {event.venue &&
+                                    `${event.venue}, ${event.address}`}
+                            </span>
+                        ) : (
+                            <a
+                                href={event.virtualLink}
+                                target="blank"
+                                className="text-color-purple-2"
+                            >
+                                {event.virtualLink}
+                            </a>
+                        )}
                     </p>
                 </div>
                 <div className="flex items-center text-color-black-2 mb-[0.5rem] z-30 relative">

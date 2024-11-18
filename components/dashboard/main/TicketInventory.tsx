@@ -1,23 +1,37 @@
-import React, { useState } from "react";
-import { getDashboardInfoStats } from "./getDashboardInfoStats";
-import { eventsDashboardData } from "@/components/utils/data";
+import React, { useEffect, useRef, useState } from "react";
+import { dashboardMonthsData } from "@/components/utils/data";
 import TicketTableItem from "./TicketTableItem";
 import ReactPaginate from "react-paginate";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { usePathname } from "next/navigation";
+import { useAppSelector } from "@/hooks/customHook";
+import formatDate from "@/components/utils/formatDate";
+import { motion } from "framer-motion";
 
 const TicketInventory = ({
     month,
     title,
-    data,
     itemsInPage,
+    tickets,
 }: {
     month: string;
     title?: string;
-    data: any;
     itemsInPage: number;
+    tickets?: any;
 }) => {
-    const { ticketPerMonth } = getDashboardInfoStats(month, data);
+    const sectionRef: any = useRef(null);
+
+    const filteredTickets = tickets.filter((tic: any) => {
+        let monthIndex = new Date(tic.createdAt).getMonth();
+
+        if (monthIndex) {
+            return dashboardMonthsData[monthIndex].month === month;
+        } else {
+            return false;
+        }
+    });
+
+    console.log(tickets);
 
     const pathname = usePathname();
 
@@ -25,15 +39,16 @@ const TicketInventory = ({
     const itemsPerPage = itemsInPage;
 
     const endOffset = itemOffset + itemsPerPage;
-    const currentItems = [...ticketPerMonth]
+    const currentItems = [...filteredTickets]
+        .slice()
         .reverse()
         .slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(ticketPerMonth.length / itemsPerPage);
+    const pageCount = Math.ceil(filteredTickets.length / itemsPerPage);
 
     // Invoke when user click to request another page.
     const handlePageClick = (event: any) => {
         const newOffset =
-            (event.selected * itemsPerPage) % ticketPerMonth.length;
+            (event.selected * itemsPerPage) % filteredTickets.length;
         setItemOffset(newOffset);
     };
 
@@ -45,16 +60,27 @@ const TicketInventory = ({
         "Event Name",
         "buyer email",
         "ticket type",
-        "quantity",
+        // "quantity",
         "request date",
         "status",
     ];
 
+    const scrollToSection = () => {
+        sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+                duration: 0.5,
+                ease: "easeIn",
+            }}
             className={`border border-[rgba(239,240,243,1)] rounded-[0.8rem] ${
                 pathname.includes("tickets") ? "mt-0" : " mt-[3rem] "
             } flex flex-col  font-outfit`}
+            ref={sectionRef}
         >
             {title && (
                 <div className="px-[2rem] py-[2.5rem] w-full">
@@ -78,20 +104,26 @@ const TicketInventory = ({
                         </tr>
                     </thead>
                     <tbody>
-                        {currentItems.map((ticket: any, i: number) => (
-                            <TicketTableItem
-                                key={i}
-                                ticketId={`#TH-` + `${i + 1}`.padStart(3, "0")}
-                                eventName={`Lagos Island ${i + 1}`}
-                                buyerEmail={"ejim@gmail.com"}
-                                ticketType={`${
-                                    i % 2 === 0 ? "VIP" : "General"
-                                }`}
-                                quantity={1}
-                                requestDate={"02/07/2024. 01:46"}
-                                status={ticket.status}
-                            />
-                        ))}
+                        {currentItems.length > 0 &&
+                            currentItems.map((ticket: any, i: number) => {
+                                const { dateInNumber, month, year }: any =
+                                    formatDate(ticket.updatedAt);
+                                return (
+                                    <TicketTableItem
+                                        key={i}
+                                        ticketId={
+                                            `#TH-` +
+                                            `${ticket.id}`.padStart(3, "0")
+                                        }
+                                        eventName={ticket.event.name}
+                                        buyerEmail={ticket.owner.email ?? ""}
+                                        ticketType={ticket.type.toUpperCase()}
+                                        quantity={1}
+                                        requestDate={`${dateInNumber} ${month}, ${year}`}
+                                        status={ticket.ticketStatus}
+                                    />
+                                );
+                            })}
                     </tbody>
                 </table>
                 {/* react paginate */}
@@ -121,10 +153,13 @@ const TicketInventory = ({
                         nextLinkClassName={paginateNavStyle}
                         pageLinkClassName="paginate-page-link"
                         activeLinkClassName="paginate-active-page-link"
+                        onClick={() => {
+                            scrollToSection();
+                        }}
                     />
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

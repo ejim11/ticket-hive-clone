@@ -5,7 +5,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const EventSkeleton = () => {
     return (
-        <div className="flex  flex-col relative z-20">
+        <div className="flex  flex-col relative z-20 w-full">
             <SkeletonTheme
                 baseColor="#f1f3f5"
                 highlightColor="rgba(197, 167, 255, 1)"

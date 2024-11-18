@@ -1,6 +1,8 @@
 "use client";
+import formatDate from "@/components/utils/formatDate";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import Image from "next/image";
+import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 const EventItem = ({
@@ -16,7 +18,7 @@ const EventItem = ({
 }) => {
     const totalTickets = event.tickets.length;
     const soldTickets = event.tickets.filter(
-        (ticket: any) => ticket.status === "sold"
+        (ticket: any) => ticket.ticketStatus === "sold"
     );
     const displaySideModal = index === sideModalIndex;
 
@@ -47,15 +49,26 @@ const EventItem = ({
         setSideModalIndex(index);
     };
 
+    const { dateInNumber, day, month, year }: any = formatDate(
+        event.eventStartDate
+    );
+
     return (
         <div className="flex items-center w-full relative  font-outfit bg-color-white-1 mb-[3rem]">
-            <div className="bg-color-grey-1 w-[15rem] h-[10rem] rounded-[0.8rem] mr-[3.2rem] sm:hidden"></div>
+            <div className="bg-color-grey-1 w-[15rem] h-[10rem] rounded-[0.8rem] mr-[3.2rem] sm:hidden">
+                <Image
+                    src={event.image}
+                    alt={`${event.name}-img`}
+                    priority
+                    width={100}
+                    height={100}
+                    className="w-full h-full"
+                />
+            </div>
             <div className="text-[rgba(34,34,34,0.8)] mr-[1rem]">
-                <p className="text-[2rem] font-medium">
-                    Event Name {index + 1}
-                </p>
+                <p className="text-[2rem] font-medium">{event.name}</p>
                 <p className="my-[0.5rem] ">
-                    28, July 2024 / 10am - 4pm / Location Venue
+                    {dateInNumber} {day} {month}, {year}
                     {/* {event.createdAt} */}
                 </p>
                 <p>
@@ -63,9 +76,9 @@ const EventItem = ({
                 </p>
             </div>
             <div className="flex items-center ml-auto">
-                <p className="mr-[3.5rem] px-[1rem] py-[0.5rem] bg-[rgba(248,244,255,1)] text-[1.4rem] text-color-purple-1 font-medium rounded-[0.4rem]">
+                {/* <p className="mr-[3.5rem] px-[1rem] py-[0.5rem] bg-[rgba(248,244,255,1)] text-[1.4rem] text-color-purple-1 font-medium rounded-[0.4rem]">
                     Active
-                </p>
+                </p> */}
                 <button
                     type="button"
                     className="w-[2.4rem] h-[2.4rem] flex items-center justify-center hover:bg-[rgba(247,247,247)] transition-all duration-150 ease-in"

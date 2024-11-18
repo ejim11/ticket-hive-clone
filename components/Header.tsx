@@ -105,6 +105,7 @@ const Header = () => {
                     width={200}
                     height={200}
                     className="w-auto h-auto "
+                    priority
                 />
             </Link>
             <div

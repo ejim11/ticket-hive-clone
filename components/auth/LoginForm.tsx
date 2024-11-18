@@ -51,7 +51,7 @@ const LoginForm = () => {
         router.replace("/dashboard");
     };
 
-    const onSubscribeHandler: SubmitHandler<FormData> = (data) => {
+    const onLoginHandler: SubmitHandler<FormData> = (data) => {
         dispatchFn(
             userLoginDispatch(
                 data,
@@ -75,7 +75,7 @@ const LoginForm = () => {
                 experiences.
             </p>
             <form
-                onSubmit={handleSubmit(onSubscribeHandler)}
+                onSubmit={handleSubmit(onLoginHandler)}
                 noValidate
                 className="w-full mt-[4rem]"
             >

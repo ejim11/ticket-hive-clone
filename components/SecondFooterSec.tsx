@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const SecondFooterSec = () => {
     return (
-        <div className="p-[10rem] 2xl:px-[8rem] xlg:px-[3rem] sm:px-[2rem] flex justify-between smd:flex-col">
+        <div className="p-[9.5rem] 2xl:px-[8rem] xlg:px-[3rem] sm:px-[2rem] flex justify-between smd:flex-col">
             <div className="w-[50%] smd:w-full sm:flex sm:flex-col sm:items-center">
                 <Link href={"/"}>
                     <Image
