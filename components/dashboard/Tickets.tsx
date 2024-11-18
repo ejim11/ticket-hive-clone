@@ -20,11 +20,11 @@ const Tickets = () => {
         monthFilter={monthFilter}
         setMonthFilter={setMonthFilter}
       />
-      <TicketInventory
+      {/* <TicketInventory
         month={monthFilter}
         // data={eventsDashboardData}
         itemsInPage={100}
-      />
+      /> */}
     </DashboardCover>
   );
 };
