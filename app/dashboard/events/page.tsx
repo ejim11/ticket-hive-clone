@@ -2,24 +2,35 @@
 import { getDashboardEventsDispatch } from "@/actions/dashboardActions";
 import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
 import { dashboardActions } from "@/slices/dashboardSlice";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Events from "@/components/dashboard/Events";
 
 const Page = () => {
-    const dispatchFn = useAppDispatch();
+  const dispatchFn = useAppDispatch();
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const storedDetails = JSON.parse(
-                window.localStorage.getItem("dashboardItems") || "{}"
-            );
+  const [monthFilter, setMonthFilter] = useState<any>("");
 
-            dispatchFn(dashboardActions.setDashboardDetails(storedDetails));
-            dispatchFn(getDashboardEventsDispatch(storedDetails.id));
-        }
-    }, [dispatchFn]);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedDetails = JSON.parse(
+        window.localStorage.getItem("dashboardItems") || "{}"
+      );
 
-    return <Events />;
+      dispatchFn(dashboardActions.setDashboardDetails(storedDetails));
+
+      if (monthFilter === "all" || monthFilter === "") {
+        dispatchFn(getDashboardEventsDispatch(storedDetails.id));
+      } else {
+        dispatchFn(getDashboardEventsDispatch(storedDetails.id, monthFilter));
+      }
+    }
+  }, [dispatchFn, monthFilter]);
+
+  return (
+    <Suspense>
+      <Events monthFilter={monthFilter} setMonthFilter={setMonthFilter} />
+    </Suspense>
+  );
 };
 
 export default Page;

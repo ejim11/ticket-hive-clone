@@ -9,81 +9,77 @@ import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
 import { dashboardActions } from "@/slices/dashboardSlice";
 import DashboardInfosSkeleton from "../skeletons/DashboardInfosSkeleton";
 import {
-    getDashboardEventsDispatch,
-    getDashboardTicketsDispatch,
+  getDashboardEventsDispatch,
+  getDashboardTicketsDispatch,
 } from "@/actions/dashboardActions";
 import TicketCreatedVsTicketSoldGraphSkeleton from "../skeletons/TicketCreatedVsTicketSoldGraphSkeleton";
 import TicketInventorySkeleton from "../skeletons/TicketInventorySkeleton";
 const Info = lazy(() => import("./main/Info"));
 
 const Dashboard = () => {
-    const dispatchFn = useAppDispatch();
-    const addTicketsHandler = (e: any) => {};
+  const dispatchFn = useAppDispatch();
+  const addTicketsHandler = (e: any) => {};
 
-    const { token } = useAppSelector((state) => state.auth);
+  const { token } = useAppSelector((state) => state.auth);
 
-    const { events, isLoading, tickets } = useAppSelector(
-        (state) => state.dashboard
-    );
+  const { events, isLoading, tickets } = useAppSelector(
+    (state) => state.dashboard
+  );
 
-    const currentMonth = dashboardMonthsData[new Date().getMonth()];
+  const currentMonth = dashboardMonthsData[new Date().getMonth()];
 
-    const [monthFilter, setMonthFilter] = useState<any>(currentMonth.month);
+  const [monthFilter, setMonthFilter] = useState<any>(currentMonth.month);
 
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const storedDetails = JSON.parse(
-                window.localStorage.getItem("dashboardItems") || "{}"
-            );
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedDetails = JSON.parse(
+        window.localStorage.getItem("dashboardItems") || "{}"
+      );
 
-            dispatchFn(dashboardActions.setDashboardDetails(storedDetails));
-            dispatchFn(
-                getDashboardEventsDispatch(storedDetails.id, monthFilter)
-            );
-            dispatchFn(getDashboardTicketsDispatch(token, monthFilter));
-        }
-    }, [dispatchFn, token, monthFilter]);
+      dispatchFn(dashboardActions.setDashboardDetails(storedDetails));
+      dispatchFn(getDashboardEventsDispatch(storedDetails.id, monthFilter));
+      dispatchFn(getDashboardTicketsDispatch(token, monthFilter));
+    }
+  }, [dispatchFn, token, monthFilter]);
 
-    return (
-        <DashboardCover
-            title="Dashboard"
-            btnText="Add tickets"
-            onClickBtn={addTicketsHandler}
-        >
-            <SearchAndFilterSection
-                monthFilter={monthFilter}
-                setMonthFilter={setMonthFilter}
+  return (
+    <DashboardCover
+      title="Dashboard"
+      btnText="Add tickets"
+      onClickBtn={addTicketsHandler}
+    >
+      <SearchAndFilterSection
+        monthFilter={monthFilter}
+        setMonthFilter={setMonthFilter}
+      />
+      <main className="py-[3rem] px-[4rem] md:px-[2.5rem] sm:px-[2rem]">
+        {isLoading && <DashboardInfosSkeleton />}
+        <Suspense fallback={<DashboardInfosSkeleton />}>
+          {events.length > 0 && <Info month={monthFilter} events={events} />}
+        </Suspense>
+        {isLoading && <TicketCreatedVsTicketSoldGraphSkeleton />}
+        <Suspense fallback={<TicketCreatedVsTicketSoldGraphSkeleton />}>
+          {events.length > 0 && (
+            <TicketCreatedVsTicketSoldGraph
+              month={monthFilter}
+              events={events}
             />
-            <main className="py-[3rem] px-[4rem] md:px-[2.5rem] sm:px-[2rem]">
-                {isLoading && <DashboardInfosSkeleton />}
-                <Suspense fallback={<DashboardInfosSkeleton />}>
-                    {events.length > 0 && (
-                        <Info month={monthFilter} events={events} />
-                    )}
-                </Suspense>
-                {isLoading && <TicketCreatedVsTicketSoldGraphSkeleton />}
-                <Suspense fallback={<TicketCreatedVsTicketSoldGraphSkeleton />}>
-                    {events.length > 0 && (
-                        <TicketCreatedVsTicketSoldGraph
-                            month={monthFilter}
-                            events={events}
-                        />
-                    )}
-                </Suspense>
-                {isLoading && <TicketInventorySkeleton />}
-                <Suspense fallback={<TicketInventorySkeleton />}>
-                    {tickets.length > 0 && (
-                        <TicketInventory
-                            month={monthFilter}
-                            title="Ticket Inventory"
-                            itemsInPage={20}
-                            tickets={tickets}
-                        />
-                    )}
-                </Suspense>
-            </main>
-        </DashboardCover>
-    );
+          )}
+        </Suspense>
+        {isLoading && <TicketInventorySkeleton />}
+        <Suspense fallback={<TicketInventorySkeleton />}>
+          {tickets.length > 0 && (
+            <TicketInventory
+              month={monthFilter}
+              title="Ticket Inventory"
+              itemsInPage={50}
+              tickets={tickets}
+            />
+          )}
+        </Suspense>
+      </main>
+    </DashboardCover>
+  );
 };
 
 export default Dashboard;
