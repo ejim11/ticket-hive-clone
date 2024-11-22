@@ -6,33 +6,37 @@ import { dashboardActions } from "@/slices/dashboardSlice";
 import React, { Suspense, useEffect, useState } from "react";
 
 const Page = () => {
-  const dispatchFn = useAppDispatch();
+    const dispatchFn = useAppDispatch();
 
-  const { token } = useAppSelector((state) => state.auth);
+    const { token } = useAppSelector((state) => state.auth);
 
-  const [monthFilter, setMonthFilter] = useState<any>("");
+    const [monthFilter, setMonthFilter] = useState<any>("");
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedDetails = JSON.parse(
-        window.localStorage.getItem("dashboardItems") || "{}"
-      );
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const storedDetails = JSON.parse(
+                window.localStorage.getItem("dashboardItems") || "{}"
+            );
 
-      dispatchFn(dashboardActions.setDashboardDetails(storedDetails));
+            dispatchFn(dashboardActions.setDashboardUserDetails(storedDetails));
+            if (token) {
+                if (monthFilter === "all" || monthFilter === "") {
+                    dispatchFn(getDashboardTicketsDispatch(token));
+                } else {
+                    dispatchFn(getDashboardTicketsDispatch(token, monthFilter));
+                }
+            }
+        }
+    }, [dispatchFn, monthFilter, token]);
 
-      if (monthFilter === "all" || monthFilter === "") {
-        dispatchFn(getDashboardTicketsDispatch(token));
-      } else {
-        dispatchFn(getDashboardTicketsDispatch(token, monthFilter));
-      }
-    }
-  }, [dispatchFn, monthFilter, token]);
-
-  return (
-    <Suspense>
-      <Tickets monthFilter={monthFilter} setMonthFilter={setMonthFilter} />
-    </Suspense>
-  );
+    return (
+        <Suspense>
+            <Tickets
+                monthFilter={monthFilter}
+                setMonthFilter={setMonthFilter}
+            />
+        </Suspense>
+    );
 };
 
 export default Page;

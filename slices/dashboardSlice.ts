@@ -12,7 +12,7 @@ const dashboardSlice = createSlice({
         tickets: [],
     },
     reducers: {
-        setDashboardDetails(state, action) {
+        setDashboardUserDetails(state, action) {
             state.firstname = action.payload.firstname;
             state.lastname = action.payload.lastname;
             state.id = action.payload.id;

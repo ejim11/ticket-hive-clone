@@ -62,6 +62,7 @@ function emptyLocalStorage() {
     localStorage.removeItem("userRefreshToken");
     localStorage.removeItem("expirationTime");
     localStorage.removeItem("user");
+    localStorage.removeItem("dashboardItems");
 }
 
 export const authActions = authSlice.actions;

@@ -23,7 +23,8 @@ export const userLoginDispatch =
         iconError: ReactNode,
         reset: Function,
         nav1: Function,
-        nav2: Function
+        nav2: Function,
+        homeRoute: Function
     ) =>
     async (dispatch: Function) => {
         setIsLoading(true);
@@ -36,7 +37,7 @@ export const userLoginDispatch =
                 dispatch(userActions.setUserDetails(user));
             } else {
                 dispatch(
-                    dashboardActions.setDashboardDetails({
+                    dashboardActions.setDashboardUserDetails({
                         firstname: user.firstName,
                         lastname: user.lastName,
                         email: user.email,
@@ -79,6 +80,7 @@ export const userLoginDispatch =
                 //     );
                 // } else {
                 dispatch(authActions.autoLogoutHandler());
+                homeRoute();
                 // }
             }, remainingTime);
 
@@ -112,11 +114,13 @@ export const userLogout = () => {
 };
 
 // autologout when page is refreshed
-export const autoLogout = (tokenDuration: any) => {
+export const autoLogout = (tokenDuration: any, navToHome: Function) => {
     console.log("auto", tokenDuration);
+
     return (dispatch: any) => {
         logoutTimer = setTimeout(async () => {
             dispatch(authActions.autoLogoutHandler());
+            navToHome();
         }, tokenDuration);
     };
 };

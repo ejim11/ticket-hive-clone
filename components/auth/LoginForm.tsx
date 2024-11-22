@@ -62,7 +62,10 @@ const LoginForm = () => {
                 <LuBadgeAlert className="w-[2.3rem] h-[2.3rem] red" />,
                 resetForm,
                 nav1,
-                nav2
+                nav2,
+                () => {
+                    router.push("/");
+                }
             )
         );
     };

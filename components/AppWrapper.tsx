@@ -4,11 +4,12 @@ import { getAllEventsDispatch } from "@/actions/eventActions";
 import { searchForEventDispatch } from "@/actions/searchActions";
 import { useAppDispatch, useAppSelector } from "@/hooks/customHook";
 import { eventsActions } from "@/slices/eventSlice";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo } from "react";
 
 const AppWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const dispatchFn = useAppDispatch();
+    const router = useRouter();
 
     const { remainingTime, refreshToken, token, isLoggedIn } = useAppSelector(
         (state) => state.auth
@@ -30,11 +31,15 @@ const AppWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     // );
 
     const autoLogoutHandler = useCallback(() => {
+        const navToHome = () => {
+            router.push("/");
+        };
+        console.log(remainingTime);
         if (remainingTime) {
+            dispatchFn(autoLogout(remainingTime, navToHome));
             dispatchFn(autoLogin(remainingTime, refreshToken));
-            dispatchFn(autoLogout(remainingTime));
         }
-    }, [dispatchFn, refreshToken, remainingTime]);
+    }, [dispatchFn, refreshToken, remainingTime, router]);
 
     useEffect(() => {
         autoLogoutHandler();
@@ -46,7 +51,7 @@ const AppWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 window.localStorage.getItem("events") || "[]"
             );
 
-            dispatchFn(eventsActions.setEvents(storedEvents));
+            // dispatchFn(eventsActions.setEvents(storedEvents));
         }
     }, [dispatchFn]);
 

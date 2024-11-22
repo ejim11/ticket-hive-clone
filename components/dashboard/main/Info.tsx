@@ -12,7 +12,6 @@ import { useAppSelector } from "@/hooks/customHook";
 import { motion } from "framer-motion";
 
 const Info = ({ month, events }: { month: string; events: any[] }) => {
-    console.log(events);
     const {
         monthlyEventsStats,
         monthlyTicketsStats,

@@ -130,8 +130,6 @@ export const getDashboardInfoStats = (month: string, events: any) => {
         .filter((tic: any) => {
             let monthIndex = new Date(tic.createdAt).getMonth();
 
-            console.log(monthIndex);
-
             if (monthIndex) {
                 return dashboardMonthsData[monthIndex].month === month;
             } else {

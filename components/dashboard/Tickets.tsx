@@ -8,38 +8,38 @@ import { useAppSelector } from "@/hooks/customHook";
 import TicketInventorySkeleton from "../skeletons/TicketInventorySkeleton";
 
 const Tickets = ({
-  monthFilter,
-  setMonthFilter,
+    monthFilter,
+    setMonthFilter,
 }: {
-  monthFilter: string;
-  setMonthFilter: Function;
+    monthFilter: string;
+    setMonthFilter: Function;
 }) => {
-  const addTicketsHandler = (e: any) => {};
+    const addTicketsHandler = (e: any) => {};
 
-  const { tickets, isLoading } = useAppSelector((state) => state.dashboard);
+    const { tickets, isLoading } = useAppSelector((state) => state.dashboard);
 
-  return (
-    <DashboardCover
-      title="Tickets"
-      btnText="Add tickets"
-      onClickBtn={addTicketsHandler}
-    >
-      <SearchAndFilterSection
-        monthFilter={monthFilter}
-        setMonthFilter={setMonthFilter}
-      />
-      {isLoading && <TicketInventorySkeleton />}
-      <Suspense fallback={<TicketInventorySkeleton />}>
-        {tickets.length > 0 && !isLoading && (
-          <TicketInventory
-            month={monthFilter}
-            tickets={tickets}
-            itemsInPage={100}
-          />
-        )}
-      </Suspense>
-    </DashboardCover>
-  );
+    return (
+        <DashboardCover
+            title="Tickets"
+            btnText="Add tickets"
+            onClickBtn={addTicketsHandler}
+        >
+            <SearchAndFilterSection
+                monthFilter={monthFilter}
+                setMonthFilter={setMonthFilter}
+            />
+            {isLoading && <TicketInventorySkeleton />}
+            <Suspense fallback={<TicketInventorySkeleton />}>
+                {tickets.length > 0 && !isLoading && (
+                    <TicketInventory
+                        month={monthFilter}
+                        tickets={tickets}
+                        itemsInPage={100}
+                    />
+                )}
+            </Suspense>
+        </DashboardCover>
+    );
 };
 
 export default Tickets;
